@@ -1,0 +1,197 @@
+/* General styles */
+body {
+    background-color: #e6f7ff; /* Light sky blue */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main page container */
+.main-container {
+    text-align: center;
+    padding: 50px;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Main title */
+.main-container h1 {
+    font-size: 2.5em;
+    color: #007BFF; /* Darker blue */
+    margin-bottom: 20px;
+    font-family: 'Georgia', serif;
+}
+
+/* Search bar */
+#search-bar {
+    width: 60%;
+    padding: 15px;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* Medicine list */
+#medicine-list {
+    list-style-type: none;
+    padding: 0;
+    font-size: 1.5em;
+}
+
+#medicine-list li {
+    margin: 15px 0;
+}
+
+#medicine-list a {
+    text-decoration: none;
+    color: #007BFF; /* Darker blue */
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+#medicine-list a:hover {
+    text-decoration: underline;
+    color: #0056b3; /* Darker shade on hover */
+}
+
+/* Peripheral page container */
+.peripheral-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative; /* Added for positioning general dosing */
+}
+
+/* Peripheral title */
+.peripheral-container h2 {
+    font-size: 2em;
+    color: #007BFF; /* Darker blue */
+    margin-bottom: 20px;
+    font-family: 'Georgia', serif;
+}
+
+.peripheral-container .strength {
+    color: #FF5733; /* Noticeable color for strength */
+}
+
+/* Converter box */
+.converter-box {
+    background: #f9f9f9;
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.converter-box input {
+    width: calc(50% - 12px);
+    margin: 6px;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.converter-box .mg-unit, .converter-box .kg-unit {
+    font-size: 1em;
+    font-weight: bold;
+    color: #ff0000; /* Red for mg and kg */
+}
+
+.converter-box .ml-unit {
+    font-size: 1em;
+    font-weight: bold;
+    color: #0000ff; /* Blue for mL */
+}
+
+.converter-box button {
+    margin: 6px;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+
+.converter-box button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.warning {
+    color: red;
+    font-weight: bold;
+}
+
+/* General dosing */
+.dosing-box {
+    background: #f1f1f1;
+    border: 2px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: left;
+    font-size: 0.9em; /* Smaller font */
+}
+
+.dosing-box h3 {
+    font-size: 1.2em;
+    color: #007BFF;
+}
+
+.dosing-box p, .dosing-box ul, .dosing-box li {
+    margin: 5px 0;
+    line-height: 1.5;
+}
+
+.dosing-box .important {
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.dosing-box .highlight {
+    color: #ff5733; /* Different color for highlighting */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .main-container {
+        padding: 20px;
+    }
+
+    .main-container h1 {
+        font-size: 2em;
+    }
+
+    #search-bar {
+        width: 80%;
+    }
+
+    .peripheral-container {
+        padding: 15px;
+    }
+
+    .peripheral-container h2 {
+        font-size: 1.5em;
+    }
+
+    .converter-box input, .converter-box button {
+        width: calc(100% - 24px);
+    }
+}

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levothyroxine Sodium (L-Thyroxine SERB) 150mcg/mL Solution Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 30px; /* 6 points larger */
+            font-weight: bold;
+            text-align: center;
+        }
+        .drug-name {
+            color: navy;
+            margin-bottom: 0;
+        }
+        .drug-strength {
+            color: darkorange;
+            margin-top: 0;
+        }
+        .dose-calculator {
+            color: black;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .drug-image {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .converter-box, .bottle-calculator-section {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            max-width: 600px;
+            text-align: center;
+        }
+        .converter-box input[type="number"], .bottle-calculator-section input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .converter-box button, .bottle-calculator-section button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .converter-box button:hover, .bottle-calculator-section button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #004d40;
+            max-width: 600px;
+            text-align: center;
+        }
+        .result span {
+            font-weight: bold;
+            color: red;
+        }
+        .highlight {
+            font-weight: bold;
+            color: blue;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-row label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dosing-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .collapsible {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .collapsible:hover {
+            background-color: #004d40;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 1px solid #00796b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: black;
+        }
+        .highlight-red {
+            color: red;
+        }
+        .highlight-blue {
+            color: blue;
+        }
+        .highlight-orange {
+            color: orange;
+        }
+        .highlight-bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="drug-name">Levothyroxine Sodium</h1>
+        <h1 class="drug-strength">150mcg/mL Solution</h1>
+        <h1 class="dose-calculator">Dose Calculator</h1>
+        <img src="file:///Users/mac/Desktop/Medicine-converter/Photos/Levothyroxine%20Sodium%20(L-Thyroxine%20SERB)%20150mcg%20mL%20Solution.jpg" alt="Levothyroxine Sodium 150mcg/mL Solution" class="drug-image">
+        
+        <div class="box-wrapper">
+            <div class="converter-box">
+                <label for="mg-amount" style="font-weight: bold; color: black;">Enter dose in mcg:</label>
+                <input type="number" id="mcg-amount" placeholder="Enter dose in mcg">
+                <button onclick="convertDose(150, 1)">Calculate mL</button>
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+
+            <div class="bottle-calculator-section">
+                <div class="input-row">
+                    <label for="frequency">Enter frequency (times per day):</label>
+                    <input type="number" id="frequency" placeholder="Enter frequency (times per day)">
+                    <span>daily</span>
+                </div>
+                <div class="input-row">
+                    <label for="days">Enter number of days:</label>
+                    <input type="number" id="days" placeholder="Enter number of days">
+                    <span>days</span>
+                </div>
+                <div class="input-row">
+                    <label for="bottle-size">Enter bottle size (mL):</label>
+                    <input type="number" id="bottle-size" placeholder="Enter bottle size (mL)">
+                    <span>mL</span>
+                </div>
+                <button onclick="calculateBottles()">Calculate Bottles</button>
+                <div id="bottle-result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">ALERT: US Boxed Warning</button>
+            <div class="content">
+                <p><span class="highlight-red">Weight reduction:</span> Thyroid hormones, including levothyroxine, either alone or with other therapeutic agents, should not be used for the treatment of obesity or for weight loss. In euthyroid patients, doses within the range of daily hormonal requirements are ineffective for weight reduction. Larger doses may produce serious or even life-threatening manifestations of toxicity, particularly when given in association with sympathomimetic amines, such as those used for their anorectic effects.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight-bold">Dosage guidance:</span> Safety: Oral solution is available in multiple concentrations; dosing should be presented in mcg of levothyroxine; use extra precaution when verifying product formulation and calculation of dose volumes.</p>
+                <p><span class="highlight-blue">Hypothyroidism, acquired or congenital:</span> Note: Hyperactivity in older children may be minimized by starting at one-quarter (25%) of the recommended dose and increasing each week by that amount until the full dose is achieved (4 weeks).</p>
+                <p>Oral: Note: Doses should be adjusted based on clinical response and laboratory parameters. Brand name tablets are preferred over generic tablets for treating congenital hypothyroidism. Switching between different levothyroxine products and/or formulations may result in variations in the administered dose, alter thyroid-stimulating hormone (TSH) values, and is generally not recommended; if products or formulations are changed, close monitoring of TSH is recommended; patients with congenital hypothyroidism may be more sensitive to changes in formulations. Commercially available oral liquids may have a higher bioavailability than tablets; neonates and infants receiving commercially available oral liquids may need more frequent monitoring. Experts recommend against the use of extemporaneously prepared solutions/suspensions.</p>
+                <p>1 to 3 months: Oral: 10 to 15 mcg/kg/dose once daily; in severe cases of congenital hypothyroidism (serum T4 <5 mcg/dL), initiating at higher doses (12 to 17 mcg/kg/dose) may be necessary.</p>
+                <p>>3 to 6 months: Oral: 8 to 10 mcg/kg/dose once daily.</p>
+                <p>>6 to 12 months: Oral: 6 to 8 mcg/kg/dose once daily.</p>
+                <p>1 to 5 years: Oral: 5 to 6 mcg/kg/dose once daily.</p>
+                <p>6 to 12 years: Oral: 4 to 5 mcg/kg/dose once daily.</p>
+                <p>>12 years with incomplete growth and puberty: Oral: 2 to 3 mcg/kg/dose once daily.</p>
+                <p>Adolescents with growth and puberty complete: Oral: 1.6 mcg/kg/dose once daily; adjust dose by 12.5 to 25 mcg/day every 4 to 6 weeks as needed. Usual doses are ≤200 mcg/day (range: 100 to 125 mcg/day [70 kg adult]); doses ≥300 mcg/day are rare (consider poor compliance, malabsorption, and/or drug interactions).</p>
+                <p><span class="highlight-blue">Cardiac disease:</span> Note: Lower initial doses are recommended.</p>
+                <p>Infants and Children: Oral: Initial: ~50% of target replacement dose; increase after 2 weeks based on free thyroxine levels.</p>
+                <p>Adolescents with growth and puberty complete: Oral: Initial: 12.5 to 25 mcg/day; adjust dose by 12.5 to 25 mcg increments at 6- to 8-week intervals as needed.</p>
+                <p><span class="highlight-blue">IV:</span> Note: The relative bioavailability of injectable and oral levothyroxine has not been established; use caution when switching patients from oral to IV as accurate dosing conversions have not been established.</p>
+                <p>Infants, Children, and Adolescents: IV: Initial: ~75% to 80% of the oral dose.</p>
+                <p><span class="highlight-blue">Thyroid-stimulating hormone suppression in well differentiated thyroid cancer (papillary):</span> Infants, Children, and Adolescents: Oral: Highly individualized; doses >2 mcg/kg/day may be needed to suppress TSH to <0.1 milliunits/L in high-risk tumors; for intermediate-risk tumors, initial TSH suppression to 0.1 to 0.5 milliunits/L is recommended; for low-risk tumors, TSH may be maintained at 0.5 to 1 milliunits/L.</p>
+                <p><span class="highlight-blue">Deceased organ donor management (hormonal resuscitation for the deceased organ donor):</span></p>
+                <p>Infants <6 months: IV: Initial: 5 mcg/kg bolus dose, followed by 1.4 mcg/kg/hour infusion.</p>
+                <p>Infants 6 to 12 months: IV: Initial: 4 mcg/kg bolus dose, followed by 1.3 mcg/kg/hour infusion.</p>
+                <p>Children 1 to 5 years: IV: Initial: 3 mcg/kg bolus dose, followed by 1.2 mcg/kg/hour infusion.</p>
+                <p>Children 6 to 12 years: IV: Initial: 2.5 mcg/kg bolus dose, followed by 1 mcg/kg/hour infusion.</p>
+                <p>Children ≥12 years and Adolescents ≤16 years: IV: Initial: 1.5 mcg/kg bolus dose, followed by 0.8 mcg/kg/hour infusion.</p>
+                <p>Adolescents >16 years: IV: Initial: 0.8 mcg/kg bolus dose, followed by 0.8 mcg/kg/hour infusion.</p>
+                <p><span class="highlight-bold">Dosage adjustment for concomitant therapy:</span> Significant drug interactions exist, requiring dose/frequency adjustment or avoidance. Consult drug interactions database for more information.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Altered Kidney Function: Pediatric</button>
+            <div class="content">
+                <p>There are no dosage adjustments provided in the manufacturer's labeling.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Hepatic Impairment: Pediatric</button>
+            <div class="content">
+                <p>There are no dosage adjustments provided in the manufacturer's labeling.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Adult</button>
+            <div class="content">
+                <p><span class="highlight-bold">Dosage guidance:</span> Dosing: Individual T4 requirements correlate better with lean body mass than total body weight; in patients with a BMI ≥30 kg/m2, initial dosing based on lean body weight is preferred to avoid overreplacement. Initial doses >200 mcg/day are rarely used, regardless of patient weight.</p>
+                <p><span class="highlight-blue">Clinical considerations:</span> Levothyroxine is synthetic thyroxine (T4). Due to its prolonged half-life, levothyroxine steady-state concentrations are not achieved until ~6 weeks after therapy is initiated or dosage adjustment; therefore, the full effect at a given dose may not be apparent until then.</p>
+                <p>For further details refer to a reliable resource.</p>
+            </div>
+        </div>
+        
+        <p><span class="highlight">Reference:</span> LexiDrugs</p>
+    </div>
+    <script>
+        function convertDose(mcgPerML, mLPerUnit) {
+            const mcgAmount = document.getElementById('mcg-amount').value;
+            const resultElement = document.getElementById('result');
+
+            if (mcgAmount) {
+                const mLAmount = (mcgAmount / mcgPerML) * mLPerUnit;
+                resultElement.innerHTML = `<span class="highlight">Each dose in mL:</span> ${mcgAmount} mcg / ${mcgPerML} mcg/mL = <span>${mLAmount.toFixed(2).replace(/\.00$/, '')} mL</span>`;
+                resultElement.style.display = 'block';
+                return mLAmount;  // Return the mLAmount for further calculations
+            } else {
+                resultElement.style.display = 'none';
+                return 0;  // Return 0 if no value is entered
+            }
+        }
+
+        function calculateBottles() {
+            const frequency = document.getElementById('frequency').value;
+            const days = document.getElementById('days').value;
+            const bottleSize = document.getElementById('bottle-size').value;
+            const mcgAmount = document.getElementById('mcg-amount').value;
+            const mLAmount = convertDose(150, 1);  // Get the mLAmount from the first calculation
+            const bottleResultElement = document.getElementById('bottle-result');
+
+            if (frequency && days && bottleSize && mLAmount) {
+                const totalDailyDose = mLAmount * frequency;
+                const totalMls = totalDailyDose * days;
+                const totalBottles = Math.ceil(totalMls / bottleSize);
+
+                bottleResultElement.innerHTML = `<div class="highlight">Total daily dose in mL:</div> ${mLAmount} mL x ${frequency} = <span>${totalDailyDose} mL</span>
+                                                 <div class="highlight">Total mL needed:</div> ${totalDailyDose} mL x ${days} = <span>${totalMls} mL</span>
+                                                 <div class="highlight">Total bottles needed:</div> ${totalMls} mL / ${bottleSize} mL = <span>${totalBottles} bottles</span>`;
+                bottleResultElement.style.display = 'block';
+            } else {
+                bottleResultElement.style.display = 'none';
+            }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

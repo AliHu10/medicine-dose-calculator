@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amoxicillin Trihydrate/Potassium Clavulanate (Augmentin ES-600) 642.9mg/5mL Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .drug-name {
+            color: navy;
+            margin-bottom: 0;
+        }
+        .drug-strength {
+            color: darkorange;
+            margin-top: 0;
+        }
+        .dose-calculator {
+            color: black;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .drug-image {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .converter-box, .bottle-calculator-section {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            max-width: 600px;
+            text-align: center;
+        }
+        .converter-box input[type="number"], .bottle-calculator-section input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .converter-box button, .bottle-calculator-section button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .converter-box button:hover, .bottle-calculator-section button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #004d40;
+            max-width: 600px;
+            text-align: center;
+        }
+        .result span {
+            font-weight: bold;
+            color: red;
+        }
+        .highlight {
+            font-weight: bold;
+            color: blue;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-row label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dosing-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .collapsible {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .collapsible:hover {
+            background-color: #004d40;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 1px solid #00796b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: black;
+        }
+        .highlight-red {
+            color: red;
+        }
+        .highlight-blue {
+            color: blue;
+        }
+        .highlight-orange {
+            color: orange;
+        }
+        .highlight-bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="drug-name">Amoxicillin Trihydrate/Potassium Clavulanate (Augmentin ES-600)</h1>
+        <h1 class="drug-strength">642.9mg/5mL</h1>
+        <h1 class="dose-calculator">Dose Calculator</h1>
+        <img src="file:///Users/mac/Desktop/Medicine-converter/Photos/Augmentin%20ES.webp" alt="Amoxicillin Trihydrate/Potassium Clavulanate (Augmentin ES-600) 642.9mg/5mL" class="drug-image">
+        
+        <div class="box-wrapper">
+            <div class="converter-box">
+                <label for="mg-amount" style="font-weight: bold; color: black;">Enter dose in mg:</label>
+                <input type="number" id="mg-amount" placeholder="Enter dose in mg">
+                <button onclick="convertDose(600, 5)">Calculate mL</button>
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+
+            <div class="bottle-calculator-section">
+                <div class="input-row">
+                    <label for="frequency">Enter frequency (times per day):</label>
+                    <input type="number" id="frequency" placeholder="Enter frequency (times per day)">
+                    <span>daily</span>
+                </div>
+                <div class="input-row">
+                    <label for="days">Enter number of days:</label>
+                    <input type="number" id="days" placeholder="Enter number of days">
+                    <span>days</span>
+                </div>
+                <div class="input-row">
+                    <label for="bottle-size">Enter bottle size (mL):</label>
+                    <input type="number" id="bottle-size" placeholder="Enter bottle size (mL)">
+                    <span>mL</span>
+                </div>
+                <button onclick="calculateBottles()">Calculate Bottles</button>
+                <div id="bottle-result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">Important Note</button>
+            <div class="content">
+                <p>Only the amoxicillin component (600mg/5mL) is counted for the conversion. The potassium clavulanate component is not included in the dose calculation.</p>
+            </div>
+            <button type="button" class="collapsible">Dosing: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight-bold">Dosage guidance:</span></p>
+                <p>Dose is based on amoxicillin component; not all products are interchangeable; using a product with the incorrect amoxicillin:clavulanate ratio could result in subtherapeutic clavulanic acid concentrations or severe diarrhea. Incidence of diarrhea increases with clavulanate dose; some experts recommend not exceeding 10 mg clavulanate/kg/day or 125 mg clavulanate/dose.</p>
+                <p><span class="highlight-blue">Formulation should be chosen based on dosing strategy:</span></p>
+                <p><span class="highlight-orange">Standard-dose regimens (ie, ≤45 mg/kg/day):</span></p>
+                <p><span class="highlight-blue">2:1 formulations:</span> amoxicillin 250 mg/clavulanate 125 mg. Note: Per the manufacturer, the amoxicillin 250 mg/clavulanate 125 mg tablet should only be used in patients ≥40 kg, due to the amoxicillin to clavulanate ratio.</p>
+                <p><span class="highlight-blue">4:1 formulations:</span></p>
+                <ul>
+                    <li>amoxicillin 125 mg/clavulanate 31.25 mg</li>
+                    <li>amoxicillin 250 mg/clavulanate 62.5 mg</li>
+                    <li>amoxicillin 500 mg/clavulanate 125 mg</li>
+                </ul>
+                <p><span class="highlight-blue">7:1 formulations:</span></p>
+                <ul>
+                    <li>amoxicillin 200 mg/clavulanate 28.5 mg</li>
+                    <li>amoxicillin 400 mg/clavulanate 57 mg</li>
+                    <li>amoxicillin 875 mg/clavulanate 125 mg</li>
+                </ul>
+                <p><span class="highlight-orange">High-dose regimens (ie, 80 to 90 mg/kg/day):</span></p>
+                <p><span class="highlight-blue">14:1 formulations:</span> amoxicillin 600 mg/clavulanate 42.9 mg.</p>
+                <p><span class="highlight-blue">16:1 formulations (extended release):</span> amoxicillin 1,000 mg/clavulanate 62.5 mg.</p>
+                <p><span class="highlight-bold">General dosing:</span> Note: See indication-specific dosing; recommended doses may vary. General dosing determined by formulation amoxicillin:clavulanate ratio.</p>
+                <p><span class="highlight-blue">Immediate-release formulations:</span></p>
+                <p>Infants, Children, and Adolescents:</p>
+                <p>4:1 formulation: Oral: 20 to 40 mg amoxicillin/kg/day in divided doses every 8 hours; maximum daily dose: 1,500 mg/day.</p>
+                <p>7:1 formulation: Oral: 25 to 45 mg amoxicillin/kg/day in divided doses every 12 hours; maximum daily dose: 1,750 mg/day.</p>
+                <p>14:1 formulation: Oral: 90 mg amoxicillin/kg/day in divided doses every 12 hours; maximum daily dose: 4,000 mg/day.</p>
+                <p><span class="highlight-blue">Extended-release formulation (16:1):</span> Children and Adolescents ≥40 kg: Oral: 2,000 mg amoxicillin every 12 hours.</p>
+            </div>
+            <button type="button" class="collapsible">Dosing: Adults</button>
+            <div class="content">
+                <p><span class="highlight-bold">Dosage guidance:</span></p>
+                <p>Dosing: Dose is based on the amoxicillin component.</p>
+                <p>Dosage form information: Dose and frequency are product specific; not all products are interchangeable. For adults who have difficulty swallowing the tablets, oral suspension in the appropriate amount may be given.</p>
+                <p>Usual dosing range:</p>
+                <p>Oral: Immediate release: 500 mg every 8 to 12 hours or 875 mg every 12 hours; Extended release: 2 g every 12 hours.</p>
+                <p>IV [Canadian product]: 1 g every 8 hours or 2 g every 8 to 12 hours; surgical prophylaxis: 1 to 2 g at induction of anaesthesia for procedures <1 hour (for procedures >1 hour may administer up to 2 additional doses in 24 hours; do not exceed 3 g in 24 hours).</p>
+                <p>For further information about dosing, refer to a reliable resource.</p>
+            </div>
+        </div>
+        
+        <p><span class="highlight">Reference:</span> LexiDrugs</p>
+    </div>
+    <script>
+        function convertDose(mgPerML, mLPerUnit) {
+            const mgAmount = document.getElementById('mg-amount').value;
+            const resultElement = document.getElementById('result');
+
+            if (mgAmount) {
+                const mLAmount = (mgAmount / mgPerML) * mLPerUnit;
+                resultElement.innerHTML = `<span class="highlight">Each dose in mL:</span> ${mgAmount} mg / ${mgPerML} mg/mL = <span>${mLAmount.toFixed(2).replace(/\.00$/, '')} mL</span>`;
+                resultElement.style.display = 'block';
+                return mLAmount;  // Return the mLAmount for further calculations
+            } else {
+                resultElement.style.display = 'none';
+                return 0;  // Return 0 if no value is entered
+            }
+        }
+
+        function calculateBottles() {
+            const frequency = document.getElementById('frequency').value;
+            const days = document.getElementById('days').value;
+            const bottleSize = document.getElementById('bottle-size').value;
+            const mgAmount = document.getElementById('mg-amount').value;
+            const mLAmount = convertDose(600, 5);  // Get the mLAmount from the first calculation
+            const bottleResultElement = document.getElementById('bottle-result');
+
+            if (frequency && days && bottleSize && mLAmount) {
+                const totalDailyDose = mLAmount * frequency;
+                const totalMls = totalDailyDose * days;
+                const totalBottles = Math.ceil(totalMls / bottleSize);
+
+                bottleResultElement.innerHTML = `<div class="highlight">Total daily dose in mL:</div> ${mLAmount} mL x ${frequency} = <span>${totalDailyDose} mL</span>
+                                                 <div class="highlight">Total mL needed:</div> ${totalDailyDose} mL x ${days} = <span>${totalMls} mL</span>
+                                                 <div class="highlight">Total bottles needed:</div> ${totalMls} mL / ${bottleSize} mL = <span>${totalBottles} bottles</span>`;
+                bottleResultElement.style.display = 'block';
+            } else {
+                bottleResultElement.style.display = 'none';
+            }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

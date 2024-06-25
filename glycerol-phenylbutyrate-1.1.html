@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glycerol Phenylbutyrate (Ravicti) 1.1mg/mL Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 30px; /* 6 points larger */
+            font-weight: bold;
+            text-align: center;
+        }
+        .drug-name {
+            color: navy;
+            margin-bottom: 0;
+        }
+        .drug-strength {
+            color: darkorange;
+            margin-top: 0;
+        }
+        .dose-calculator {
+            color: black;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .drug-image {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .converter-box, .bottle-calculator-section {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            max-width: 600px;
+            text-align: center;
+        }
+        .converter-box input[type="number"], .bottle-calculator-section input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .converter-box button, .bottle-calculator-section button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .converter-box button:hover, .bottle-calculator-section button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #004d40;
+            max-width: 600px;
+            text-align: center;
+        }
+        .result span {
+            font-weight: bold;
+            color: red;
+        }
+        .highlight {
+            font-weight: bold;
+            color: blue;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-row label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dosing-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .collapsible {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .collapsible:hover {
+            background-color: #004d40;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 1px solid #00796b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: black;
+        }
+        .highlight-red {
+            color: red;
+        }
+        .highlight-blue {
+            color: blue;
+        }
+        .highlight-orange {
+            color: orange;
+        }
+        .highlight-bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="drug-name">Glycerol Phenylbutyrate (Ravicti)</h1>
+        <h1 class="drug-strength">1.1mg/mL Dose Calculator</h1>
+        <h1 class="dose-calculator">Dose Calculator</h1>
+        <img src="file:///Users/mac/Desktop/Medicine-converter/Photos/Glycerol%20Phenylbutyrate%20(Ravicti)%201.1mg%20mL%20Syrup.webp" alt="Glycerol Phenylbutyrate 1.1mg/mL Syrup" class="drug-image">
+        
+        <div class="box-wrapper">
+            <div class="converter-box">
+                <label for="mg-amount" style="font-weight: bold; color: black;">Enter dose in mg:</label>
+                <input type="number" id="mg-amount" placeholder="Enter dose in mg">
+                <button onclick="convertDose(1.1, 1)">Calculate mL</button>
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+
+            <div class="bottle-calculator-section">
+                <div class="input-row">
+                    <label for="frequency">Enter frequency (times per day):</label>
+                    <input type="number" id="frequency" placeholder="Enter frequency (times per day)">
+                    <span>daily</span>
+                </div>
+                <div class="input-row">
+                    <label for="days">Enter number of days:</label>
+                    <input type="number" id="days" placeholder="Enter number of days">
+                    <span>days</span>
+                </div>
+                <div class="input-row">
+                    <label for="bottle-size">Enter bottle size (mL):</label>
+                    <input type="number" id="bottle-size" placeholder="Enter bottle size (mL)">
+                    <span>mL</span>
+                </div>
+                <button onclick="calculateBottles()">Calculate Bottles</button>
+                <div id="bottle-result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">Dosing: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight">Urea cycle disorders</span></p>
+                <p>Note: Glycerol phenylbutyrate must be used with dietary protein restriction and, in some cases, dietary supplements (eg, essential amino acids, arginine, citrulline, protein-free calorie supplements).</p>
+                <p><span class="highlight-blue">Phenylbutyrate-naive patients:</span></p>
+                <p><span class="highlight">BSA-directed dosing:</span> Note: In patients with some residual enzyme activity and not adequately controlled with protein restriction, the initial dose should be 4.5 mL/m2/day (5 g/m2/day). Dosing presented as mL. 1 mL = 1.1 g of glycerol phenylbutyrate = 1.02 g of phenylbutyrate.</p>
+                <p>Infants and Children <2 years: Oral: Initial: 4.5 to 11.2 mL/m2/day (5 to 12.4 g/m2/day) in equally divided doses with food/formula 3 or more times daily; round doses up to the nearest 0.1 mL.</p>
+                <p>Children ≥2 years and Adolescents: Oral: Initial: 4.5 to 11.2 mL/m2/day (5 to 12.4 g/m2/day) in equally divided doses with food 3 times daily; round doses up to the nearest 0.5 mL; maximum daily dose: 17.5 mL/day (19 g/day).</p>
+                <p><span class="highlight">Protein intake directed dosing:</span> Infants, Children, and Adolescents: Oral: Initial: 0.6 mL for every 1 g dietary protein ingested in a 24-hour period; maximum daily dose: 17.5 mL/day (19 g/day); administer in equally divided doses with food; round up to the nearest 0.1 mL (infants and children <2 years) or 0.5 mL (children ≥2 years and adolescents).</p>
+                <p><span class="highlight-blue">Patients switching from sodium phenylbutyrate to glycerol phenylbutyrate:</span> Note: Patients should receive the same amount of phenylbutyric acid from the sodium phenylbutyrate dose. Calculate the dosage of glycerol phenylbutyrate (mL) using the following equation:</p>
+                <p>Infants, Children, and Adolescents: Oral:</p>
+                <p><span class="highlight">Previously taking tablets:</span> Total daily dosage of glycerol phenylbutyrate (mL) = total daily dosage of sodium phenylbutyrate tablets (g) x 0.86</p>
+                <p><span class="highlight">Previously taking powder:</span> Total daily dosage of glycerol phenylbutyrate (mL) = total daily dosage of sodium phenylbutyrate powder (g) x 0.81</p>
+                <p>Note: Doses should be given in equally divided doses and doses rounded up for infants and children <2 years to the nearest 0.1 mL and for children ≥2 years and adolescents to the nearest 0.5 mL.</p>
+                <p><span class="highlight-red">Dosing adjustment:</span> If symptoms of vomiting, nausea, headache, somnolence, confusion, or sleepiness are present in the absence of high ammonia or other intercurrent illnesses, reduce the dose.</p>
+                <p><span class="highlight-bold">Plasma ammonia:</span> When ammonia concentrations are elevated, increase dose to produce a fasting plasma ammonia concentration to achieve the following goals:</p>
+                <p>Infants and Children <6 years: First ammonia concentration of the morning: Below the ULN. Note: First morning ammonia concentration is preferred in this group as it is harder to obtain a fasting concentration due to frequent feedings.</p>
+                <p>Children ≥6 years and Adolescents: Fasting ammonia concentration: Less than half the ULN.</p>
+                <p><span class="highlight-bold">Urinary phenylacetylglutamine (U-PAGN):</span> If U-PAGN excretion is insufficient to cover daily dietary protein intake (1 g U-PAGN excreted covers waste nitrogen from 1.4 g dietary protein) and fasting ammonia is greater than half the ULN, increase the glycerol phenylbutyrate dose (taking into consideration dietary protein, glycerol phenylbutyrate dose/g of dietary protein, maximum daily dose, and concomitant medications).</p>
+                <p><span class="highlight-bold">Plasma phenylacetate (PAA) and Phenylacetylglutamine (PAGN):</span> No specific dosage adjustment recommendations provided; however, if available, the PAA:PAGN ratio may be helpful in guiding dosage decisions. In patients with a high PAA:PAGN ratio, a further increase in glycerol phenylbutyrate dose may not be beneficial as PAGN formation may not increase (even if PAA concentrations are increased) due to saturation of the conjugation reaction.</p>
+                <p><span class="highlight-bold">Dosage adjustment for concomitant therapy:</span> Significant drug interactions exist, requiring dose/frequency adjustment or avoidance. Consult drug interactions database for more information.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Altered Kidney Function: Pediatric</button>
+            <div class="content">
+                <p>There are no dosage adjustments provided in the manufacturer's labeling (has not been studied); use with caution.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Hepatic Impairment: Pediatric</button>
+            <div class="content">
+                <p>Mild impairment: There are no dosage adjustments provided in the manufacturer's labeling; use with caution.</p>
+                <p>Moderate or severe impairment: Initiate dose at the low end of the dosing range (4.5 mL/m2/day [5 g/m2/day]) and keep at lowest dose necessary; use with caution.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Adult</button>
+            <div class="content">
+                <p>Revise a reliable reference</p>
+            </div>
+        </div>
+        
+        <p><span class="highlight">Reference:</span> LexiDrugs</p>
+    </div>
+    <script>
+        function convertDose(mgPer5mL, mLPerUnit) {
+            const mgAmount = document.getElementById('mg-amount').value;
+            const resultElement = document.getElementById('result');
+
+            if (mgAmount) {
+                const mLAmount = (mgAmount / mgPer5mL) * mLPerUnit;
+                resultElement.innerHTML = `<span class="highlight">Each dose in mL:</span> ${mgAmount} mg / ${mgPer5mL} mg/5 mL = <span>${mLAmount.toFixed(2).replace(/\.00$/, '')} mL</span>`;
+                resultElement.style.display = 'block';
+                return mLAmount;  // Return the mLAmount for further calculations
+            } else {
+                resultElement.style.display = 'none';
+                return 0;  // Return 0 if no value is entered
+            }
+        }
+
+        function calculateBottles() {
+            const frequency = document.getElementById('frequency').value;
+            const days = document.getElementById('days').value;
+            const bottleSize = document.getElementById('bottle-size').value;
+            const mgAmount = document.getElementById('mg-amount').value;
+            const mLAmount = convertDose(1.1, 1);  // Get the mLAmount from the first calculation
+            const bottleResultElement = document.getElementById('bottle-result');
+
+            if (frequency && days && bottleSize && mLAmount) {
+                const totalDailyDose = mLAmount * frequency;
+                const totalMls = totalDailyDose * days;
+                const totalBottles = Math.ceil(totalMls / bottleSize);
+
+                bottleResultElement.innerHTML = `<div class="highlight">Total daily dose in mL:</div> ${mLAmount} mL x ${frequency} = <span>${totalDailyDose} mL</span>
+                                                 <div class="highlight">Total mL needed:</div> ${totalDailyDose} mL x ${days} = <span>${totalMls} mL</span>
+                                                 <div class="highlight">Total bottles needed:</div> ${totalMls} mL / ${bottleSize} mL = <span>${totalBottles} bottles</span>`;
+                bottleResultElement.style.display = 'block';
+            } else {
+                bottleResultElement.style.display = 'none';
+            }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

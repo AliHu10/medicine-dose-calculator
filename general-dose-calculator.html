@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .peripheral-container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #00695c;
+        }
+        .converter-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .converter-box label {
+            font-weight: bold;
+            color: #004d40;
+        }
+        .converter-box input[type="number"] {
+            width: 70px;
+            padding: 5px;
+            margin-right: 5px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+        }
+        .converter-box .unit {
+            font-weight: bold;
+            color: #004d40;
+        }
+        .converter-box .per-concentration {
+            display: inline-flex;
+            align-items: center;
+        }
+        .converter-box button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        .converter-box button:hover {
+            background-color: #004d40;
+        }
+        .result-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #00796b;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+            display: none; /* Hide when no result */
+        }
+        .highlight {
+            font-weight: bold;
+            color: #d32f2f; /* Red color for easier reading */
+        }
+        .warning {
+            color: #ff0000;
+            font-weight: bold;
+        }
+        .result-box p {
+            margin-bottom: 10px;
+        }
+        .result-section {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .result-section p {
+            margin: 5px 0;
+        }
+        .heading {
+            color: #00796b;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="peripheral-container">
+        <h2>General Dose Calculator</h2>
+        <div class="converter-box">
+            <label for="mg-dose">Enter dose in <span class="unit">mg:</span></label>
+            <input type="number" id="mg-dose" placeholder="Enter amount in mg">
+            <br>
+            <label for="mg-per-ml">Enter concentration (mg/mL):</label>
+            <div class="per-concentration">
+                <input type="number" id="mg-value" placeholder="mg">
+                <span class="unit">per</span>
+                <input type="number" id="ml-value" placeholder="mL">
+            </div>
+            <br>
+            <button onclick="calculateDose()">Calculate mL</button>
+            <div id="dose-result" class="result-box"></div>
+        </div>
+        <div class="converter-box">
+            <label for="frequency">Enter frequency (times per day):</label>
+            <input type="number" id="frequency" placeholder="Enter frequency">
+            <br>
+            <label for="days">Enter number of days:</label>
+            <input type="number" id="days" placeholder="Enter number of days">
+            <br>
+            <label for="bottle-size">Enter bottle size (mL):</label>
+            <input type="number" id="bottle-size" placeholder="Enter bottle size"><span class="unit">mL</span>
+            <br>
+            <button onclick="calculateBottles()">Calculate Bottles</button>
+            <div id="total-result" class="result-box"></div>
+            <div id="bottle-result" class="result-box"></div>
+        </div>
+    </div>
+    <script>
+        let totalMlNeeded = 0;
+
+        function calculateDose() {
+            const mgDose = document.getElementById('mg-dose').value;
+            const mgValue = document.getElementById('mg-value').value;
+            const mlValue = document.getElementById('ml-value').value;
+            const doseResultElement = document.getElementById('dose-result');
+
+            if (mgDose && mgValue && mlValue) {
+                const mgPerMl = mgValue / mlValue;
+                const mlAmount = mgDose / mgPerMl;
+                totalMlNeeded = mlAmount;
+                doseResultElement.innerHTML = `
+                    <span class="heading">Each dose in mL:</span> <br>
+                    ${mgDose} mg / (${mgValue} mg/mL) = <span class="highlight">${parseFloat(mlAmount.toFixed(2))} mL</span>
+                `;
+                doseResultElement.style.display = 'block'; // Show result
+            } else {
+                doseResultElement.innerHTML = `<span class="warning">Please enter the dose in mg and concentration in mg/mL.</span>`;
+                doseResultElement.style.display = 'block'; // Show result
+            }
+        }
+
+        function calculateBottles() {
+            const frequency = document.getElementById('frequency').value;
+            const days = document.getElementById('days').value;
+            const bottleSize = document.getElementById('bottle-size').value;
+            const totalResultElement = document.getElementById('total-result');
+            const bottleResultElement = document.getElementById('bottle-result');
+
+            if (frequency && days && totalMlNeeded) {
+                const totalDailyMl = totalMlNeeded * frequency;
+                const totalMl = totalDailyMl * days;
+                totalResultElement.innerHTML = `
+                    <span class="heading">Total daily dose in mL:</span> <br>
+                    ${parseFloat(totalMlNeeded.toFixed(2))} mL * ${frequency} times/day = <span class="highlight">${parseFloat(totalDailyMl.toFixed(2))} mL/day</span>
+                    <br>
+                    <span class="heading">Total mL needed:</span> <br>
+                    ${parseFloat(totalDailyMl.toFixed(2))} mL/day * ${days} days = <span class="highlight">${parseFloat(totalMl.toFixed(2))} mL</span>
+                `;
+                totalResultElement.style.display = 'block'; // Show result
+
+                if (bottleSize) {
+                    const bottlesNeeded = totalMl / bottleSize;
+                    bottleResultElement.innerHTML = `
+                        <span class="heading">Total bottles needed:</span> <br>
+                        ${parseFloat(totalMl.toFixed(2))} mL / ${bottleSize} mL = <span class="highlight">${parseFloat(bottlesNeeded.toFixed(2))} bottles</span>
+                    `;
+                    bottleResultElement.style.display = 'block'; // Show result
+                } else {
+                    bottleResultElement.innerHTML = `<span class="warning">Please enter the bottle size in mL.</span>`;
+                    bottleResultElement.style.display = 'block'; // Show result
+                }
+            } else {
+                totalResultElement.innerHTML = `<span class="warning">Please calculate the dose and enter the frequency and number of days.</span>`;
+                totalResultElement.style.display = 'block'; // Show result
+                bottleResultElement.innerHTML = '';
+                bottleResultElement.style.display = 'none'; // Hide result
+            }
+        }
+    </script>
+</body>
+</html>

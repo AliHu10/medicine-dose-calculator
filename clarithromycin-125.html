@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clarithromycin (Klacid) 125mg/5mL Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .drug-name {
+            color: navy;
+            margin-bottom: 0;
+        }
+        .drug-strength {
+            color: darkorange;
+            margin-top: 0;
+        }
+        .dose-calculator {
+            color: black;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .drug-image {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .converter-box, .bottle-calculator-section {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            max-width: 600px;
+            text-align: center;
+        }
+        .converter-box input[type="number"], .bottle-calculator-section input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .converter-box button, .bottle-calculator-section button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .converter-box button:hover, .bottle-calculator-section button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #004d40;
+            max-width: 600px;
+            text-align: center;
+        }
+        .result span {
+            font-weight: bold;
+            color: red;
+        }
+        .highlight {
+            font-weight: bold;
+            color: blue;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-row label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dosing-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .collapsible {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .collapsible:hover {
+            background-color: #004d40;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 1px solid #00796b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="drug-name">Clarithromycin (Klacid)</h1>
+        <h1 class="drug-strength">125mg/5mL</h1>
+        <h1 class="dose-calculator">Dose Calculator</h1>
+        <img src="file:///Users/mac/Desktop/Medicine-converter/Photos/Klacid-125mg.5ml.jpg" alt="Clarithromycin (Klacid) 125mg/5mL" class="drug-image">
+        
+        <div class="box-wrapper">
+            <div class="converter-box">
+                <label for="mg-amount" style="font-weight: bold; color: black;">Enter dose in mg:</label>
+                <input type="number" id="mg-amount" placeholder="Enter dose in mg">
+                <button onclick="convertDose(125, 5)">Calculate mL</button>
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+
+            <div class="bottle-calculator-section">
+                <div class="input-row">
+                    <label for="frequency">Enter frequency (times per day):</label>
+                    <input type="number" id="frequency" placeholder="Enter frequency (times per day)">
+                    <span>daily</span>
+                </div>
+                <div class="input-row">
+                    <label for="days">Enter number of days:</label>
+                    <input type="number" id="days" placeholder="Enter number of days">
+                    <span>days</span>
+                </div>
+                <div class="input-row">
+                    <label for="bottle-size">Enter bottle size (mL):</label>
+                    <input type="number" id="bottle-size" placeholder="Enter bottle size (mL)">
+                    <span>mL</span>
+                </div>
+                <button onclick="calculateBottles()">Calculate Bottles</button>
+                <div id="bottle-result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">Dosing: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight-bold">General dosing:</span> IV [International product]: Children ≥12 years and Adolescents: Usual dosage: 500 mg every 12 hours for 2 to 5 days, followed by transition to oral therapy when appropriate. Oral: Infants, Children, and Adolescents: Immediate release: 7.5 mg/kg/dose every 12 hours; maximum dose: 500 mg/dose (Red Book [AAP 2021]). For further dosing information, refer to a reliable source.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Adult</button>
+            <div class="content">
+                <p><span class="highlight-bold">Dosage guidance:</span> IV [International product]: Usual dosage: 500 mg every 12 hours for 2 to 5 days, followed by transition to oral therapy when appropriate. Oral: Dosage form information: IR and ER formulations are available; 500 mg every 12 hours of immediate release is equivalent to 1 g of extended release (two 500 mg ER tablets) once daily. For further dosing information, refer to a reliable source.</p>
+            </div>
+        </div>
+        
+        <p><span class="highlight">Reference:</span> LexiDrugs</p>
+    </div>
+    <script>
+        function convertDose(mgPerML, mLPerUnit) {
+            const mgAmount = document.getElementById('mg-amount').value;
+            const resultElement = document.getElementById('result');
+
+            if (mgAmount) {
+                const mLAmount = (mgAmount / mgPerML) * mLPerUnit;
+                resultElement.innerHTML = `<span class="highlight">Each dose in mL:</span> ${mgAmount} mg / ${mgPerML} mg/mL = <span>${mLAmount.toFixed(2).replace(/\.00$/, '')} mL</span>`;
+                resultElement.style.display = 'block';
+                return mLAmount;  // Return the mLAmount for further calculations
+            } else {
+                resultElement.style.display = 'none';
+                return 0;  // Return 0 if no value is entered
+            }
+        }
+
+        function calculateBottles() {
+            const frequency = document.getElementById('frequency').value;
+            const days = document.getElementById('days').value;
+            const bottleSize = document.getElementById('bottle-size').value;
+            const mgAmount = document.getElementById('mg-amount').value;
+            const mLAmount = convertDose(125, 5);  // Get the mLAmount from the first calculation
+            const bottleResultElement = document.getElementById('bottle-result');
+
+            if (frequency && days && bottleSize && mLAmount) {
+                const totalDailyDose = mLAmount * frequency;
+                const totalMls = totalDailyDose * days;
+                const totalBottles = Math.ceil(totalMls / bottleSize);
+
+                bottleResultElement.innerHTML = `<div class="highlight">Total daily dose in mL:</div> ${mLAmount} mL x ${frequency} = <span>${totalDailyDose} mL</span>
+                                                 <div class="highlight">Total mL needed:</div> ${totalDailyDose} mL x ${days} = <span>${totalMls} mL</span>
+                                                 <div class="highlight">Total bottles needed:</div> ${totalMls} mL / ${bottleSize} mL = <span>${totalBottles} bottles</span>`;
+                bottleResultElement.style.display = 'block';
+            } else {
+                bottleResultElement.style.display = 'none';
+            }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

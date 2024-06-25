@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cephalexin (Keflex) 250mg/5mL Dose Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .drug-name {
+            color: navy;
+            margin-bottom: 0;
+        }
+        .drug-strength {
+            color: darkorange;
+            margin-top: 0;
+        }
+        .dose-calculator {
+            color: black;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .drug-image {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .converter-box, .bottle-calculator-section {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            max-width: 600px;
+            text-align: center;
+        }
+        .converter-box input[type="number"], .bottle-calculator-section input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .converter-box button, .bottle-calculator-section button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .converter-box button:hover, .bottle-calculator-section button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #004d40;
+            max-width: 600px;
+            text-align: center;
+        }
+        .result span {
+            font-weight: bold;
+            color: red;
+        }
+        .highlight {
+            font-weight: bold;
+            color: blue;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-row label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dosing-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .collapsible {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .collapsible:hover {
+            background-color: #004d40;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 1px solid #00796b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="drug-name">Cephalexin (Keflex)</h1>
+        <h1 class="drug-strength">250mg/5mL</h1>
+        <h1 class="dose-calculator">Dose Calculator</h1>
+        <img src="file:///Users/mac/Desktop/Medicine-converter/Photos/keflex.jpg" alt="Cephalexin (Keflex) 250mg/5mL" class="drug-image">
+        
+        <div class="box-wrapper">
+            <div class="converter-box">
+                <label for="mg-amount" style="font-weight: bold; color: black;">Enter dose in mg:</label>
+                <input type="number" id="mg-amount" placeholder="Enter dose in mg">
+                <button onclick="convertDose(250, 5)">Calculate mL</button>
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+
+            <div class="bottle-calculator-section">
+                <div class="input-row">
+                    <label for="frequency">Enter frequency (times per day):</label>
+                    <input type="number" id="frequency" placeholder="Enter frequency (times per day)">
+                    <span>daily</span>
+                </div>
+                <div class="input-row">
+                    <label for="days">Enter number of days:</label>
+                    <input type="number" id="days" placeholder="Enter number of days">
+                    <span>days</span>
+                </div>
+                <div class="input-row">
+                    <label for="bottle-size">Enter bottle size (mL):</label>
+                    <input type="number" id="bottle-size" placeholder="Enter bottle size (mL)">
+                    <span>mL</span>
+                </div>
+                <button onclick="calculateBottles()">Calculate Bottles</button>
+                <div id="bottle-result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">Dosing: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight-bold">General dosing, susceptible infection:</span> Infants, Children, and Adolescents: Mild to moderate infection: Oral: 25 to 50 mg/kg/day divided every 6 to 12 hours; maximum daily dose: 2,000 mg/day (Bradley 2021; Red Book [AAP 2021]; manufacturer's labeling). Note: At these daily doses, dosing less frequently than every 6 hours may be inadequate for many Staphylococcus aureus isolates (Gwee 2020). Severe infection: Oral: 75 to 100 mg/kg/day divided every 6 to 8 hours; maximum daily dose: 4,000 mg/day (Bradley 2021; Red Book [AAP 2021]). IM/IV [International product]: 50 to 100 mg/kg/day in divided doses; maximum: 8,000 mg/day.</p>
+                <p><span class="highlight-bold">Endocarditis, prophylaxis before invasive dental procedures (alternate agent):</span> Limited data available: Note: Alternative agent for use in patients with penicillin or ampicillin allergy, excluding those with a history of anaphylaxis, angioedema, or urticaria (AHA [Wilson 2021]). Recommended only in patients who are at highest risk for infective endocarditis (IE) or adverse outcomes (eg, history of IE, cardiac valve repair using prosthetic valves or material, unrepaired cyanotic congenital heart disease [CHD], left ventricular assist device or implantable heart, repaired CHD with prosthetic material or device during first 6 months after procedure, pulmonary artery valve or conduit placement [eg, Melody valve, Contegra conduit], repaired CHD with residual defects at the site or adjacent to site of prosthetic patch or device, heart transplant recipients with cardiac valvulopathy) (AHA [Baltimore 2015]; AHA [Wilson 2021]; AHA/ACC [Nishimura 2017]). Infants, Children, and Adolescents: Oral: 50 mg/kg as a single dose administered 30 to 60 minutes prior to dental procedure; maximum dose: 2,000 mg/dose (AHA [Wilson 2021]).</p>
+                <p><span class="highlight-bold">Exit-site or tunnel infection, peritoneal dialysis catheter:</span> Limited data available: Infants, Children, and Adolescents: Oral: 10 to 20 mg/kg/day once daily or divided every 12 hours; maximum dose: 1,000 mg/dose (ISPD [Warady 2012]). Duration of therapy (ISPD [Warady 2012]): Exit-site infection: ≥2 weeks and for at least 7 days after complete resolution; ≥3 weeks for S. aureus. Tunnel infection: 2 to 4 weeks.</p>
+                <p><span class="highlight-bold">Osteoarticular infection, acute (eg, bacterial arthritis, osteomyelitis):</span> Step-down therapy following parenteral treatment: Infants, Children, and Adolescents: Oral: 100 to 150 mg/kg/day divided every 6 to 8 hours; usual maximum dose: 1,000 mg/dose (DeRonde 2018; Ramchandar 2020); some experts recommend a higher maximum dose of 1,500 mg/dose (PIDS/IDSA [Woods 2021]). Note: In some cases (eg, S. aureusinfection), an every-6-hour frequency may be preferred to optimize dosing; if using every-8-hour frequency, use doses on the higher end of the range (Autmizguine 2013; DeRonde 2018; Gwee 2020). Duration of therapy: Should be individualized based on several factors, including causative pathogen, response to therapy, and normalization of inflammatory markers. For acute hematogenous osteomyelitis, the minimum total duration is 3 to 4 weeks of therapy. For acute bacterial arthritis without osteomyelitis, typical duration is 3 to 4 weeks, but courses as short as 10 to 14 days may be considered in patients with adequate source control who improve rapidly with a consistent, progressive decrease in C-reactive protein by the end of the first week (IDSA [Woods 2024], PIDS/IDSA [Woods 2021], Ramchandar 2020, Saavedra-Lozano 2017).</p>
+                <p><span class="highlight-bold">Otitis media, acute (AOM) (alternative agent):</span> Note: Not recommended for empiric therapy; may be considered when a susceptible pathogen has been isolated (AAP [Lieberthal 2013]). Children and Adolescents <15 years: Oral: 75 to 100 mg/kg/day divided every 6 hours for 10 days; maximum dose not established for AOM. Usual maximum adult dose for other indications: Mild to moderate infections: 500 mg/dose; severe infections: 1,000 mg/dose (manufacturer's labeling).</p>
+                <p><span class="highlight-bold">Pneumonia, community acquired:</span> Pathogen-directed therapy for mild infection or step-down therapy following parenteral treatment: Infants >3 months, Children, and Adolescents: Oral: 75 to 100 mg/kg/day divided every 6 to 8 hours; maximum daily dose: 4,000 mg/day (Bradley 2021; IDSA/PIDS [Bradley 2011]). The usual total duration of therapy for uncomplicated pneumonia is 5 to 10 days (Pernica 2021; Same 2021).</p>
+                <p><span class="highlight-bold">Skin and soft tissue infection (SSTI):</span> Note: Not appropriate as monotherapy if methicillin-resistant S. aureus is suspected or confirmed. Cellulitis, erysipelas, purulent/fluctuant SSTI: Infants, Children, and Adolescents: Oral: 25 to 100 mg/kg/day divided every 6 to 8 hours; maximum dose: 500 mg/dose (Chen 2011, IDSA [Stevens 2014], Ondusko 2018, Pallin 2013, Tack 1997, Trottier 2022, manufacturer's labeling). Doses on the higher end of the range are preferred for more severe infection or when methicillin-susceptible Staphylococcus aureus is suspected (Autzmizguine 2013, Gwee 2020, Haynes 2022, Trottier 2022, manufacturer's labeling). Typical duration is 5 days for uncomplicated infection but may be extended if clinical response is inadequate (Galli 2019, IDSA [Stevens 2014]). Impetigo, ecthyma: Infants, Children, and Adolescents: Oral: 25 to 50 mg/kg/day divided every 6 to 8 hours; usual adult dose: 250 to 500 mg every 6 hours; maximum daily dose: 2,000 mg/day. Duration of treatment is 7 days (Bass 1997; IDSA [Stevens 2014]; Tack 1997).</p>
+                <p><span class="highlight-bold">Streptococcus, group A; pharyngitis/tonsillitis (alternative agent for nonanaphylactic penicillin allergy):</span> Children and Adolescents: Oral: 40 mg/kg/day divided every 12 hours for 10 days; maximum dose: 500 mg/dose (IDSA [Shulman 2012]).</p>
+                <p><span class="highlight-bold">Urinary tract infection (UTI):</span> Infants, Children, and Adolescents: Mild to moderate (eg, cystitis): Oral: 25 to 50 mg/kg/day divided every 6 to 12 hours; maximum dose: 500 mg/dose (Elo 1975; Fennell 1975; Helin 1984; Lashkar 2018; Red Book [AAP 2021]; Stein 2015; manufacturer's labeling). Severe (eg, pyelonephritis): Oral: 50 to 100 mg/kg/day divided every 6 to 8 hours; maximum dose: 1,000 mg/dose (AAP 2011; Balighian 2018; Bradley 2021; Fennell 1975; Stein 2015; manufacturer's labeling). Duration of therapy: Should be individualized based on patient-specific factors such as age, severity/extent of infection, clinical response, etc; some patients may require longer than the minimum treatment duration (eg, patients with slower clinical improvement or more complicated disease). For uncomplicated cystitis, 5 days of treatment is typically adequate (Afolabi 2020, Autore 2022, Montini 2024, Zaoutis 2023). For complicated UTI, including pyelonephritis, treatment for 7 to 10 days is likely appropriate; longer duration (≥10 days) was not shown to improve outcomes as compared to shorter duration (6 to 9 days) in an observational study of patients ≥6 months of age (Autore 2022, Fox 2020, Hari 2023, Lashkar 2018, Red Book [AAP 2021]).</p>
+                <p><span class="highlight-bold">Dosage adjustment for concomitant therapy:</span> Significant drug interactions exist, requiring dose/frequency adjustment or avoidance. Consult drug interactions database for more information.</p>
+                <p><span class="highlight-bold">Dosing: Altered Kidney Function: Pediatric</span> Weight-based dosing: Infants, Children, and Adolescents: There are no recommendations in the manufacturer's labeling; the following adjustments have been recommended (Aronoff 2007). Note: Renally-adjusted dose recommendations are based on doses of 25 to 50 mg/kg/day divided every 6 hours: Oral: CrCl >50 mL/minute/1.73 m2: No adjustment necessary. CrCl 30 to 50 mL/minute/1.73 m2: 5 to 10 mg/kg/dose every 8 hours (maximum dose: 500 mg/dose). CrCl 10 to 29 mL/minute/1.73 m2: 5 to 10 mg/kg/dose every 12 hours (maximum dose: 500 mg/dose). CrCl <10 mL/minute/1.73 m2: 5 to 10 mg/kg/dose every 24 hours (maximum dose: 500 mg/dose). Intermittent hemodialysis: 5 to 10 mg/kg/dose every 24 hours after dialysis (maximum dose: 500 mg/dose). Peritoneal dialysis: 5 to 10 mg/kg/dose every 24 hours (maximum dose: 500 mg/dose). Fixed dosing: Adolescents ≥15 years: Oral: CrCl ≥60 mL/minute: No dosage adjustment necessary. CrCl 30 to 59 mL/minute: No adjustment necessary; maximum recommended daily dose: 1,000 mg/day. CrCl 15 to 29 mL/minute: 250 mg every 8 to 12 hours. CrCl 5 to 14 mL/minute (not yet on dialysis): 250 mg every 24 hours. CrCl 1 to 4 mL/minute (not yet on dialysis): 250 mg every 48 to 60 hours.</p>
+                <p><span class="highlight-bold">Dosing: Hepatic Impairment: Pediatric</span> There are no dosing adjustments provided in the manufacturer's labeling.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Adult</button>
+            <div class="content">
+                <p>Usual dosage range: Oral: 250 mg to 1 g every 6 hours or 500 mg every 12 hours (maximum: 4 g/day). IM/IV [International product]: 2 to 8 g/day in divided doses.</p>
+                <p>For further information about dosing, refer to a reliable resource.</p>
+            </div>
+        </div>
+        
+        <p><span class="highlight">Reference:</span> LexiDrugs</p>
+    </div>
+    <script>
+        function convertDose(mgPerML, mLPerUnit) {
+            const mgAmount = document.getElementById('mg-amount').value;
+            const resultElement = document.getElementById('result');
+
+            if (mgAmount) {
+                const mLAmount = (mgAmount / mgPerML) * mLPerUnit;
+                resultElement.innerHTML = `<span class="highlight">Each dose in mL:</span> ${mgAmount} mg / ${mgPerML} mg/mL = <span>${mLAmount.toFixed(2).replace(/\.00$/, '')} mL</span>`;
+                resultElement.style.display = 'block';
+                return mLAmount;  // Return the mLAmount for further calculations
+            } else {
+                resultElement.style.display = 'none';
+                return 0;  // Return 0 if no value is entered
+            }
+        }
+
+        function calculateBottles() {
+            const frequency = document.getElementById('frequency').value;
+            const days = document.getElementById('days').value;
+            const bottleSize = document.getElementById('bottle-size').value;
+            const mgAmount = document.getElementById('mg-amount').value;
+            const mLAmount = convertDose(250, 5);  // Get the mLAmount from the first calculation
+            const bottleResultElement = document.getElementById('bottle-result');
+
+            if (frequency && days && bottleSize && mLAmount) {
+                const totalDailyDose = mLAmount * frequency;
+                const totalMls = totalDailyDose * days;
+                const totalBottles = Math.ceil(totalMls / bottleSize);
+
+                bottleResultElement.innerHTML = `<div class="highlight">Total daily dose in mL:</div> ${mLAmount} mL x ${frequency} = <span>${totalDailyDose} mL</span>
+                                                 <div class="highlight">Total mL needed:</div> ${totalDailyDose} mL x ${days} = <span>${totalMls} mL</span>
+                                                 <div class="highlight">Total bottles needed:</div> ${totalMls} mL / ${bottleSize} mL = <span>${totalBottles} bottles</span>`;
+                bottleResultElement.style.display = 'block';
+            } else {
+                bottleResultElement.style.display = 'none';
+            }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

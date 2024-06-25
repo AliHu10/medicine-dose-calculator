@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cefuroxime (Zinnat) 250mg/5mL Dose Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .drug-name {
+            color: navy;
+            margin-bottom: 0;
+        }
+        .drug-strength {
+            color: darkorange;
+            margin-top: 0;
+        }
+        .dose-calculator {
+            color: black;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .drug-image {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .converter-box, .bottle-calculator-section {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            max-width: 600px;
+            text-align: center;
+        }
+        .converter-box input[type="number"], .bottle-calculator-section input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .converter-box button, .bottle-calculator-section button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .converter-box button:hover, .bottle-calculator-section button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #004d40;
+            max-width: 600px;
+            text-align: center;
+        }
+        .result span {
+            font-weight: bold;
+            color: red;
+        }
+        .highlight {
+            font-weight: bold;
+            color: blue;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-row label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dosing-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .collapsible {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .collapsible:hover {
+            background-color: #004d40;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 1px solid #00796b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="drug-name">Cefuroxime (Zinnat)</h1>
+        <h1 class="drug-strength">250mg/5mL</h1>
+        <h1 class="dose-calculator">Dose Calculator</h1>
+        <img src="file:///Users/mac/Desktop/Medicine-converter/Photos/zinnat.webp" alt="Cefuroxime (Zinnat) 250mg/5mL" class="drug-image">
+        
+        <div class="box-wrapper">
+            <div class="converter-box">
+                <label for="mg-amount" style="font-weight: bold; color: black;">Enter dose in mg:</label>
+                <input type="number" id="mg-amount" placeholder="Enter dose in mg">
+                <button onclick="convertDose(250, 5)">Calculate mL</button>
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+
+            <div class="bottle-calculator-section">
+                <div class="input-row">
+                    <label for="frequency">Enter frequency (times per day):</label>
+                    <input type="number" id="frequency" placeholder="Enter frequency (times per day)">
+                    <span>daily</span>
+                </div>
+                <div class="input-row">
+                    <label for="days">Enter number of days:</label>
+                    <input type="number" id="days" placeholder="Enter number of days">
+                    <span>days</span>
+                </div>
+                <div class="input-row">
+                    <label for="bottle-size">Enter bottle size (mL):</label>
+                    <input type="number" id="bottle-size" placeholder="Enter bottle size (mL)">
+                    <span>mL</span>
+                </div>
+                <button onclick="calculateBottles()">Calculate Bottles</button>
+                <div id="bottle-result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">Dosing: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight-bold">General dosing:</span> Infants, Children, and Adolescents: IV, IM: 100 to 150 mg/kg/day in divided doses every 8 hours; maximum daily dose: 6,000 mg/day (Ref). Oral: 20 to 30 mg/kg/day in divided doses every 12 hours; maximum daily dose: 1,000 mg/day; higher doses may be used for some indications (Ref).</p>
+                <p><span class="highlight-bold">Chronic bronchitis, acute bacterial exacerbation:</span> Adolescents: Oral: 250 to 500 mg every 12 hours for 10 days.</p>
+                <p><span class="highlight-bold">Intra-abdominal infection (alternative agent):</span> Limited data available: Infants, Children, and Adolescents: IV: 150 to 200 mg/kg/day in divided doses every 6 to 8 hours as part of an appropriate combination regimen; maximum dose: 1,500 mg/dose. Treatment duration varies based on specific source of infection, success of source control procedures, and clinical response; a total duration of 5 to 7 days following source control is typically recommended (Ref).</p>
+                <p><span class="highlight-bold">Lyme disease (Borrelia spp. infection):</span> Infants, Children, and Adolescents: Oral: 30 mg/kg/day in divided doses every 12 hours; maximum dose: 500 mg/dose. Duration of therapy depends on clinical syndrome; treat erythema migrans and borrelial lymphocytoma for 14 days, carditis for 14 to 21 days, arthritis (initial, recurrent, or refractory) for 28 days, and acrodermatitis chronica atrophicans for 21 to 28 days (Ref).</p>
+                <p><span class="highlight-bold">Osteoarticular infection, acute (eg, septic [bacterial] arthritis, osteomyelitis):</span> IV, IM: Infants ≥3 months, Children, and Adolescents: IV, IM: 150 to 200 mg/kg/day in divided doses every 6 to 8 hours; maximum daily dose: 6,000 mg/day (Ref). Oral: Limited data available: Infants ≥3 months, Children, and Adolescents: Oral: 60 to 100 mg/kg/day in divided doses every 8 hours; maximum dose: 1,000 mg/dose (Ref). Duration of therapy: Minimum total duration (IV plus oral therapy) is 2 to 3 weeks for septic arthritis and 3 to 4 weeks for osteomyelitis; however, duration should be individualized based on several factors including causative pathogen, response to therapy, and normalization of inflammatory markers (Ref).</p>
+                <p><span class="highlight-bold">Otitis media, acute (AOM) (alternative agent for nonanaphylactic penicillin allergy):</span> Infants ≥3 months, Children, and Adolescents: Oral: 30 mg/kg/day in divided doses every 12 hours; maximum dose: 500 mg/dose (Ref). For patients with severe or recurrent AOM, tympanic membrane perforation, or who are <2 years of age, treat for 10 days; for patients ≥2 years of age with mild to moderate, nonrecurrent disease without tympanic membrane perforation, shorter durations of 5 to 7 days may be sufficient (Ref).</p>
+                <p><span class="highlight-bold">Pneumonia, bacterial (alternative agent):</span> Infants and Children: HIV-exposed/-infected: IV: 105 to 150 mg/kg/day in divided doses every 8 hours; maximum dose: 2,000 mg/dose (Ref).</p>
+                <p><span class="highlight-bold">Rhinosinusitis, acute bacterial:</span> Infants ≥3 months, Children, and Adolescents: Oral: 30 mg/kg/day in divided doses every 12 hours for 10 days; maximum dose: 500 mg/dose. Manufacturer labeling suggests that children and adolescents may also receive 250 mg in oral tablets every 12 hours (Ref). Limited data exist to determine optimal duration; historically 10 days has been recommended, but recently some have suggested a duration as short as 5 days; some patients may require extended therapy (ie, 14 to 21 days) based on clinical resolution (Ref).</p>
+                <p><span class="highlight-bold">Skin and soft tissue infection (SSTI) (including impetigo):</span> Note: Alternative agents are preferred for first-line treatment of SSTI (eg, first-generation cephalosporins) (Ref). Oral: Infants ≥3 months, Children, and Adolescents: Oral: 30 mg/kg/day in divided doses every 12 hours; maximum dose: 500 mg/dose (Ref). For impetigo, treat for 7 days; typical duration for other uncomplicated skin and soft tissue infection is 5 days, but therapy may be extended if clinical response is inadequate (Ref). IV: Infants ≥3 months and Children ≤11 years: IV: 50 to 100 mg/kg/day in divided doses every 6 to 8 hours; maximum dose: 1,500 mg/dose. Transition to oral therapy when able; total duration dependent on presentation, severity of infection, and clinical response (Ref).</p>
+                <p><span class="highlight-bold">Streptococcus, group A; pharyngitis/tonsillitis (alternative agent for nonanaphylactic penicillin allergy):</span> Note: Narrow-spectrum cephalosporins (eg, cephalexin) are preferred over broad-spectrum cephalosporins such as cefuroxime (Ref). Infants ≥3 months, Children, and Adolescents: Oral: 20 mg/kg/day in divided doses every 12 hours for 10 days; maximum dose: 250 mg/dose (Ref).</p>
+                <p><span class="highlight-bold">Surgical prophylaxis:</span> Children and Adolescents: IV: 50 mg/kg within 60 minutes prior to incision; may repeat dose in 4 hours if procedure is lengthy or if there is excessive blood loss; maximum dose: 1,500 mg/dose (Ref).</p>
+                <p><span class="highlight-bold">Urinary tract infection:</span> Infants, Children, and Adolescents: Limited data available in ages ≤12 years: Oral: 20 to 30 mg/kg/day in divided doses every 12 hours; maximum daily dose: 1,000 mg/day. European guidelines suggest that this dose may be administered in divided doses every 8 hours. Manufacturer labeling suggests that adolescents with uncomplicated infection may receive 250 mg every 12 hours (Ref). Duration of therapy should be individualized based on patient age, severity/extent of infection, and clinical response; typical duration is 7 to 14 days, though it may be as short as 3 to 5 days (eg, for uncomplicated cystitis in patients ≥2 years of age) (Ref).</p>
+                <p><span class="highlight-bold">Dosage adjustment for concomitant therapy:</span> Significant drug interactions exist, requiring dose/frequency adjustment or avoidance. Consult the drug interactions database for more information.</p>
+                <p>For further information about the dose adjustment in altered hepatic and kidney functions, refer to a reliable resource.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Adult</button>
+            <div class="content">
+                <p>Refer to a reliable resource.</p>
+            </div>
+        </div>
+        
+        <p><span class="highlight">Reference:</span> LexiDrugs</p>
+    </div>
+    <script>
+        function convertDose(mgPer5mL, mLPerDose) {
+            const mgAmount = document.getElementById('mg-amount').value;
+            const resultElement = document.getElementById('result');
+
+            if (mgAmount) {
+                const mLAmount = (mgAmount / mgPer5mL) * mLPerDose;
+                resultElement.innerHTML = `<span class="highlight">Each dose in mL:</span> ${mgAmount} mg / ${mgPer5mL} mg/5mL = <span>${mLAmount.toFixed(2).replace(/\.00$/, '')} mL</span>`;
+                resultElement.style.display = 'block';
+                return mLAmount;  // Return the mLAmount for further calculations
+            } else {
+                resultElement.style.display = 'none';
+                return 0;  // Return 0 if no value is entered
+            }
+        }
+
+        function calculateBottles() {
+            const frequency = document.getElementById('frequency').value;
+            const days = document.getElementById('days').value;
+            const bottleSize = document.getElementById('bottle-size').value;
+            const mgAmount = document.getElementById('mg-amount').value;
+            const mLAmount = convertDose(250, 5);  // Get the mLAmount from the first calculation
+            const bottleResultElement = document.getElementById('bottle-result');
+
+            if (frequency && days && bottleSize && mLAmount) {
+                const totalDailyDose = mLAmount * frequency;
+                const totalMls = totalDailyDose * days;
+                const totalBottles = Math.ceil(totalMls / bottleSize);
+
+                bottleResultElement.innerHTML = `<div class="highlight">Total daily dose in mL:</div> ${mLAmount} mL x ${frequency} = <span>${totalDailyDose} mL</span>
+                                                 <div class="highlight">Total mL needed:</div> ${totalDailyDose} mL x ${days} = <span>${totalMls} mL</span>
+                                                 <div class="highlight">Total bottles needed:</div> ${totalMls} mL / ${bottleSize} mL = <span>${totalBottles} bottles</span>`;
+                bottleResultElement.style.display = 'block';
+            } else {
+                bottleResultElement.style.display = 'none';
+            }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

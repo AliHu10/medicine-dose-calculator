@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oseltamivir (Tamiflu) 6mg/mL Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .drug-name {
+            color: navy;
+            margin-bottom: 0;
+        }
+        .drug-strength {
+            color: darkorange;
+            margin-top: 0;
+        }
+        .dose-calculator {
+            color: black;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .drug-image {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .converter-box, .bottle-calculator-section {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            max-width: 600px;
+            text-align: center;
+        }
+        .converter-box input[type="number"], .bottle-calculator-section input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .converter-box button, .bottle-calculator-section button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .converter-box button:hover, .bottle-calculator-section button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #004d40;
+            max-width: 600px;
+            text-align: center;
+        }
+        .result span {
+            font-weight: bold;
+            color: red;
+        }
+        .highlight {
+            font-weight: bold;
+            color: blue;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-row label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dosing-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .collapsible {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .collapsible:hover {
+            background-color: #004d40;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 1px solid #00796b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="drug-name">Oseltamivir (Tamiflu)</h1>
+        <h1 class="drug-strength">6mg/mL</h1>
+        <h1 class="dose-calculator">Dose Calculator</h1>
+        <img src="file:///Users/mac/Desktop/Medicine-converter/Photos/Oseltamivir%20(Tamiflu)%206mg%20mL%20Suspension.jpeg" alt="Oseltamivir (Tamiflu) 6mg/mL" class="drug-image">
+        
+        <div class="box-wrapper">
+            <div class="converter-box">
+                <label for="mg-amount" style="font-weight: bold; color: black;">Enter dose in mg:</label>
+                <input type="number" id="mg-amount" placeholder="Enter dose in mg">
+                <button onclick="convertDose(6, 1)">Calculate mL</button>
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+
+            <div class="bottle-calculator-section">
+                <div class="input-row">
+                    <label for="frequency">Enter frequency (times per day):</label>
+                    <input type="number" id="frequency" placeholder="Enter frequency (times per day)">
+                    <span>daily</span>
+                </div>
+                <div class="input-row">
+                    <label for="days">Enter number of days:</label>
+                    <input type="number" id="days" placeholder="Enter number of days">
+                    <span>days</span>
+                </div>
+                <div class="input-row">
+                    <label for="bottle-size">Enter bottle size (mL):</label>
+                    <input type="number" id="bottle-size" placeholder="Enter bottle size (mL)">
+                    <span>mL</span>
+                </div>
+                <button onclick="calculateBottles()">Calculate Bottles</button>
+                <div id="bottle-result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">Dosing: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight-bold">Influenza, treatment:</span> Note: Clinical benefit is greatest if initiated within 48 hours. In patients with severe, complicated, or progressive illness, hospitalized patients, or those at increased risk for complications, initiate treatment as soon as possible even if >48 hours have elapsed since illness onset and do not delay for laboratory confirmation. For symptomatic outpatients with mild illness not at increased risk for complications, treatment can be considered if it can be initiated ≤48 hours following illness onset. Usual duration of therapy is 5 days; a longer duration can be considered in severely ill or immunocompromised patients.</p>
+                <p>Infants ≤8 months: Oral: 3 mg/kg/dose twice daily.</p>
+                <p>Infants ≥9 months: Oral: 3.5 mg/kg/dose twice daily; some experts still recommend manufacturer labeled dosing of 3 mg/kg/dose twice daily.</p>
+                <p>Children and Adolescents:</p>
+                <p>≤15 kg: Oral: 30 mg twice daily.</p>
+                <p>>15 to 23 kg: Oral: 45 mg twice daily.</p>
+                <p>>23 to 40 kg: Oral: 60 mg twice daily.</p>
+                <p>>40 kg: Oral: 75 mg twice daily.</p>
+
+                <p><span class="highlight-bold">Influenza, prophylaxis:</span> Recommendations for patient selection for prophylaxis are variable. Duration of chemoprophylaxis varies with exposure or outbreak type, influenza vaccination status, presence of immunosuppression, and risk of severe complications from infection; in general, duration for a community/household exposure is 7 days from last known exposure and duration for an institutional outbreak is a minimum of 2 weeks and at least 1 week after the last identified case.</p>
+                <p>Infants 3 to 8 months: Limited data available: Oral: 3 mg/kg/dose once daily.</p>
+                <p>Infants ≥9 months: Limited data available: Oral: 3.5 mg/kg/dose once daily; some experts still recommend 3 mg/kg/dose once daily.</p>
+                <p>Children and Adolescents:</p>
+                <p>≤15 kg: Oral: 30 mg once daily.</p>
+                <p>>15 kg to 23 kg: Oral: 45 mg once daily.</p>
+                <p>>23 kg to 40 kg: Oral: 60 mg once daily.</p>
+                <p>>40 kg: Oral: 75 mg once daily.</p>
+
+                <p><span class="highlight-bold">Dosing: Hepatic Impairment:</span> Pediatric: Mild to moderate impairment: No dosage adjustment necessary. Severe impairment: There are no dosage adjustments provided in manufacturer's labeling (has not been studied).</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Adult</button>
+            <div class="content">
+                <p><span class="highlight-bold">Influenza, seasonal, prophylaxis:</span> Oral: 75 mg once daily.</p>
+                <p><span class="highlight-bold">Postexposure prophylaxis:</span> Consider use in patients at very high risk for influenza complications (eg, patients who are severely immunocompromised) who have had close contact within the past 48 hours with a person with confirmed or suspected influenza during that person's infectious period. Some experts also suggest use in patients at high risk. Continue for 1 week after last exposure (if previously vaccinated) or 2 weeks (if unvaccinated).</p>
+                <p><span class="highlight-bold">Institutional outbreaks:</span> Recommended for all residents regardless of vaccination status and continued for at least 2 weeks and 1 week after the last known case. Consider prophylaxis in employees, depending on vaccination status.</p>
+                <p><span class="highlight-bold">Preexposure prophylaxis:</span> Only during widespread outbreaks for persons at very high risk for influenza complications (eg, patients who are severely immunocompromised) not protected by vaccination. Continue for the duration of influenza activity or for 2 weeks following vaccination.</p>
+                <p><span class="highlight-bold">Influenza, seasonal, treatment:</span> Oral: 75 mg twice daily. Note: Higher doses (150 mg twice daily) are not currently recommended even in severely ill or immunocompromised patients.</p>
+                <p><span class="highlight-bold">Timing of initiation/target population:</span> In patients with severe, complicated, or progressive illness; hospitalized patients; or those at increased risk for complications, initiate treatment as soon as possible even if >48 hours have elapsed since illness onset and do not delay for laboratory confirmation. For symptomatic outpatients with mild illness not at increased risk for complications, treatment can be considered only if it can be initiated ≤48 hours following illness onset.</p>
+                <p><span class="highlight-bold">Duration of therapy:</span> Usual duration: 5 days; a longer duration may be considered in patients who are severely ill or immunocompromised.</p>
+
+                <p><span class="highlight-bold">Influenza A, avian, postexposure prophylaxis (off-label use):</span> Oral: 75 mg twice daily for 5 days (from the last known exposure) if exposure was time-limited and not ongoing or 10 days if exposure is likely to be ongoing (eg, household setting) due to potential for prolonged infectiousness in the case-patient.</p>
+
+                <p><span class="highlight-bold">Influenza A, avian, treatment (off-label use):</span> Oral: 75 mg twice daily. Note: Higher doses (150 mg twice daily) are not currently recommended even in severely ill or immunocompromised patients. Initiate as soon as possible, even if >48 hours have elapsed since illness onset. Do not delay treatment while awaiting lab results. The usual duration is 5 days, but consider longer courses (eg, 10 days) for severely ill hospitalized patients.</p>
+
+                <p>Note: Persons at increased risk for complications: Adults ≥65 years of age, people who are pregnant or postpartum (within 2 weeks after delivery), residents of long-term care facilities, non-Hispanic Black persons, Hispanic or Latino persons, American Indians and Alaska natives, persons with BMI ≥40 kg/m2 and individuals with certain chronic medical conditions (eg, pulmonary, cardiovascular, endocrine [eg, diabetes mellitus], renal, hepatic, hematologic, metabolic, neurologic, HIV, malignancy) or those receiving immunosuppressive medications.</p>
+
+                <p>For Altered Kidney Function and Altered Liver Function in Adults refer to a reliable resource.</p>
+            </div>
+        </div>
+        
+        <p><span class="highlight">Reference:</span> LexiDrugs</p>
+    </div>
+    <script>
+        function convertDose(mgPerML, mLPerUnit) {
+            const mgAmount = document.getElementById('mg-amount').value;
+            const resultElement = document.getElementById('result');
+
+            if (mgAmount) {
+                const mLAmount = (mgAmount / mgPerML) * mLPerUnit;
+                resultElement.innerHTML = `<span class="highlight">Each dose in mL:</span> ${mgAmount} mg / ${mgPerML} mg/mL = <span>${mLAmount.toFixed(2).replace(/\.00$/, '')} mL</span>`;
+                resultElement.style.display = 'block';
+                return mLAmount;  // Return the mLAmount for further calculations
+            } else {
+                resultElement.style.display = 'none';
+                return 0;  // Return 0 if no value is entered
+            }
+        }
+
+        function calculateBottles() {
+            const frequency = document.getElementById('frequency').value;
+            const days = document.getElementById('days').value;
+            const bottleSize = document.getElementById('bottle-size').value;
+            const mgAmount = document.getElementById('mg-amount').value;
+            const mLAmount = convertDose(6, 1);  // Get the mLAmount from the first calculation
+            const bottleResultElement = document.getElementById('bottle-result');
+
+            if (frequency && days && bottleSize && mLAmount) {
+                const totalDailyDose = mLAmount * frequency;
+                const totalMls = totalDailyDose * days;
+                const totalBottles = Math.ceil(totalMls / bottleSize);
+
+                bottleResultElement.innerHTML = `<div class="highlight">Total daily dose in mL:</div> ${mLAmount} mL x ${frequency} = <span>${totalDailyDose} mL</span>
+                                                 <div class="highlight">Total mL needed:</div> ${totalDailyDose} mL x ${days} = <span>${totalMls} mL</span>
+                                                 <div class="highlight">Total bottles needed:</div> ${totalMls} mL / ${bottleSize} mL = <span>${totalBottles} bottles</span>`;
+                bottleResultElement.style.display = 'block';
+            } else {
+                bottleResultElement.style.display = 'none';
+            }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

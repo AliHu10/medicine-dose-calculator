@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captopril (Capotene) 5mg/mL Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 30px; /* 6 points larger */
+            font-weight: bold;
+            text-align: center;
+        }
+        .drug-name {
+            color: navy;
+            margin-bottom: 0;
+        }
+        .drug-strength {
+            color: darkorange;
+            margin-top: 0;
+        }
+        .dose-calculator {
+            color: black;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .drug-image {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .converter-box, .bottle-calculator-section {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            max-width: 600px;
+            text-align: center;
+        }
+        .converter-box input[type="number"], .bottle-calculator-section input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .converter-box button, .bottle-calculator-section button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .converter-box button:hover, .bottle-calculator-section button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #004d40;
+            max-width: 600px;
+            text-align: center;
+        }
+        .result span {
+            font-weight: bold;
+            color: red;
+        }
+        .highlight {
+            font-weight: bold;
+            color: blue;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-row label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dosing-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .collapsible {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .collapsible:hover {
+            background-color: #004d40;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 1px solid #00796b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: black;
+        }
+        .highlight-red {
+            color: red;
+        }
+        .highlight-blue {
+            color: blue;
+        }
+        .highlight-orange {
+            color: orange;
+        }
+        .highlight-bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="drug-name">Captopril (Capotene)</h1>
+        <h1 class="drug-strength">5mg/mL Dose Calculator</h1>
+        <h1 class="dose-calculator">Dose Calculator</h1>
+        <img src="file:///Users/mac/Desktop/Medicine-converter/Photos/Captopril.jpg" alt="Captopril 5mg/mL Solution" class="drug-image">
+        
+        <div class="box-wrapper">
+            <div class="converter-box">
+                <label for="mg-amount" style="font-weight: bold; color: black;">Enter dose in mg:</label>
+                <input type="number" id="mg-amount" placeholder="Enter dose in mg">
+                <button onclick="convertDose(5, 1)">Calculate mL</button>
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+
+            <div class="bottle-calculator-section">
+                <div class="input-row">
+                    <label for="frequency">Enter frequency (times per day):</label>
+                    <input type="number" id="frequency" placeholder="Enter frequency (times per day)">
+                    <span>daily</span>
+                </div>
+                <div class="input-row">
+                    <label for="days">Enter number of days:</label>
+                    <input type="number" id="days" placeholder="Enter number of days">
+                    <span>days</span>
+                </div>
+                <div class="input-row">
+                    <label for="bottle-size">Enter bottle size (mL):</label>
+                    <input type="number" id="bottle-size" placeholder="Enter bottle size (mL)">
+                    <span>mL</span>
+                </div>
+                <button onclick="calculateBottles()">Calculate Bottles</button>
+                <div id="bottle-result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">Administration: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight">Oral:</span> Administer on an empty stomach 1 hour before or 2 hours after meals/feeds; administration with food will decrease absorption; consistent administration times are recommended. If crushing tablet and dissolving in water, allow adequate time for complete dissolution (>10 minutes); may also prepare and administer as an extemporaneous oral liquid.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight">Heart failure (afterload reduction):</span> Limited data available: Note: Initiate therapy at lower end of range and titrate upward to prevent symptomatic hypotension:</p>
+                <p>Infants: Oral: Initial: 0.1 to 0.3 mg/kg/dose every 6 to 24 hours; increase as tolerated and based on clinical response; usual reported daily dose range: 0.3 to 3.5 mg/kg/day divided every 6 to 12 hours; maximum daily dose: 6 mg/kg/day.</p>
+                <p>Children: Oral: Initial: 0.3 to 0.5 mg/kg/dose every 8 to 12 hours; increase as tolerated and based on clinical response; maximum daily dose: 6 mg/kg/day; in adults, the target dose is 150 mg/day.</p>
+                <p>Adolescents: Oral: Initial: 6.25 to 12.5 mg/dose 2 to 3 times daily; increase as tolerated and based on clinical response; in adults, the target dose is 150 mg/day.</p>
+                <p><span class="highlight">Hypertension:</span> Limited data available:</p>
+                <p>Weight-directed dosing:</p>
+                <p>Infants: Oral: Initial: 0.05 mg/kg/dose every 6 to 24 hours; higher initial doses of 0.1 to 0.3 mg/kg/dose every 8 hours up to 0.5 mg/kg/dose every 8 hours have been recommended by some experts and may be needed in patients with severe hypertension; adjust dose based on blood pressure response; maximum daily dose: 6 mg/kg/day.</p>
+                <p>Children and Adolescents: Oral: Initial: 0.3 to 0.5 mg/kg/dose every 8 hours; adjust dose based on blood pressure response; maximum daily dose: 6 mg/kg/day; in adults, the dose is titrated up to 150 mg/day (usual dose).</p>
+                <p>Fixed dosing:</p>
+                <p>Adolescents: Oral: Initial: 12.5 to 25 mg/dose every 8 to 12 hours; increase by 25 mg/dose weekly based on blood pressure response; in adults, the dose is increased up to 150 mg/day (usual dose).</p>
+                <p><span class="highlight-bold">Dosage adjustment for concomitant therapy:</span> Significant drug interactions exist, requiring dose/frequency adjustment or avoidance. Consult drug interactions database for more information.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Altered Kidney Function: Pediatric</button>
+            <div class="content">
+                <p>Infants, Children, and Adolescents: There are no dosage recommendations in the manufacturer's labeling. The following adjustments have been recommended. Note: Renally adjusted dose recommendations are based on doses of 0.1 to 0.5 mg/kg/dose every 6 to 8 hours; maximum daily dose: 6 mg/kg/day.</p>
+                <p>GFR 10 to 50 mL/minute/1.73 m2: Administer 75% of dose.</p>
+                <p>GFR <10 mL/minute/1.73 m2: Administer 50% of dose.</p>
+                <p>Intermittent hemodialysis: Administer 50% of dose.</p>
+                <p>Peritoneal dialysis (PD): Administer 50% of dose.</p>
+                <p>Continuous renal replacement therapy (CRRT): Administer 75% of dose.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Hepatic Impairment: Pediatric</button>
+            <div class="content">
+                <p>There are no dosage adjustments provided in the manufacturer's labeling (has not been studied).</p>
+            </div>
+
+            <button type="button" class="collapsible">ALERT: US Boxed Warning</button>
+            <div class="content">
+                <p><span class="highlight-red highlight-bold">Fetal toxicity:</span> When pregnancy is detected, discontinue captopril as soon as possible. Drugs that act directly on the renin-angiotensin system can cause injury and even death to the developing fetus.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Adult</button>
+            <div class="content">
+                <p><span class="highlight">Acute coronary syndrome:</span></p>
+                <p>Non-ST elevation acute coronary syndrome:</p>
+                <p>Note: Patients should be hemodynamically stable before initiation. Use as a component of an appropriate medical regimen, which may also include antiplatelet agent(s), a beta-blocker, and a statin. Continue angiotensin-converting enzyme inhibitor therapy indefinitely for patients with concurrent diabetes, left ventricular ejection fraction ≤40%, hypertension, or stable chronic kidney disease. Dosing is based on general dosing range in manufacturer's labeling.</p>
+                <p>Oral: Initial: 6.25 mg; if tolerated, increase to 12.5 mg 3 times daily; then increase to 25 mg 3 times daily during next several days and then gradually increase over next several weeks to target dose of 50 mg 3 times daily as tolerated.</p>
+                <p>ST-elevation myocardial infarction:</p>
+                <p>Note: Patients should be hemodynamically stable before initiation. Use as a component of an appropriate medical regimen, which may also include antiplatelet agent(s), a beta-blocker, and a statin. Dosing is based on general dosing range in manufacturer's labeling.</p>
+                <p>Oral: Initial: 6.25 mg; if tolerated, increase to 12.5 mg 3 times daily; then increase to 25 mg 3 times daily during next several days and then gradually increase over next several weeks to target dose of 50 mg 3 times daily as tolerated.</p>
+                <p><span class="highlight">Heart failure with reduced ejection fraction:</span></p>
+                <p>Note: If tolerated, an angiotensin II receptor-neprilysin inhibitor is generally preferred over an angiotensin-converting enzyme inhibitor.</p>
+                <p>Oral: Initial: 6.25 mg 3 times daily; increase dose (eg, double) as tolerated every ≥1 to 2 weeks to a target dose of 50 mg 3 times daily. In hospitalized patients, may titrate more rapidly as tolerated.</p>
+                <p><span class="highlight">Hypertension, chronic:</span></p>
+                <p>Note: For patients who warrant combination therapy (BP >20/10 mm Hg above goal or suboptimal response to initial monotherapy), may use with another appropriate agent (eg, long-acting dihydropyridine calcium channel blocker or thiazide diuretic). For severe asymptomatic hypertension, may consider short-term use for BP lowering (eg, over hours) if there is concern that severe BP elevation will precipitate an acute cardiovascular event, such as in patients with known aortic or intracranial aneurysms.</p>
+                <p>Oral: Initial: 6.25 to 25 mg 2 to 3 times daily; for patients in an acute care setting, may titrate as frequently as every 8 hours (based on pharmacokinetic properties), as needed, up to 50 mg 3 times daily; if additional BP control is needed, consider combination therapy. In an ambulatory setting, patients with severe asymptomatic hypertension and no signs of acute end organ damage should be evaluated for medication adjustment within 1 week. Consider transitioning to an appropriate longer-acting antihypertensive to improve adherence for chronic use.</p>
+                <p><span class="highlight">Primary aldosteronism (diagnostic agent) (off-label use):</span> Note: Administer after patient has been sitting or standing for at least 1 hour.</p>
+                <p>Oral: 25 to 50 mg as a single dose.</p>
+                <p><span class="highlight">Proteinuric chronic kidney disease, diabetic (labeled use) or nondiabetic (off-label use):</span></p>
+                <p>Oral: Initial: 12.5 to 25 mg two to three times daily depending on initial BP; titrate gradually (eg, by doubling the dose every 2 to 4 weeks) up to the maximally tolerated dose, not to exceed 50 mg three times daily. If proteinuria target is not met despite optimized dosage, consider additional therapies (eg, sodium-glucose cotransporter-2 inhibitor).</p>
+                <p><span class="highlight-bold">Dosage adjustment for concomitant therapy:</span> Significant drug interactions exist, requiring dose/frequency adjustment or avoidance. Consult drug interactions database for more information.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Older Adult</button>
+            <div class="content">
+                <p>Refer to adult dosing. In the management of hypertension, consider lower initial doses and titrate to response.</p>
+            </div>
+        </div>
+        
+        <p><span class="highlight">Reference:</span> LexiDrugs</p>
+    </div>
+    <script>
+        function convertDose(mgPerMl, mlPerUnit) {
+            const mgAmount = document.getElementById('mg-amount').value;
+            const resultElement = document.getElementById('result');
+
+            if (mgAmount) {
+                const mLAmount = (mgAmount / mgPerMl) * mlPerUnit;
+                resultElement.innerHTML = `<span class="highlight">Each dose in mL:</span> ${mgAmount} mg / ${mgPerMl} mg/mL = <span>${mLAmount.toFixed(2).replace(/\.00$/, '')} mL</span>`;
+                resultElement.style.display = 'block';
+                return mLAmount;  // Return the mLAmount for further calculations
+            } else {
+                resultElement.style.display = 'none';
+                return 0;  // Return 0 if no value is entered
+            }
+        }
+
+        function calculateBottles() {
+            const frequency = document.getElementById('frequency').value;
+            const days = document.getElementById('days').value;
+            const bottleSize = document.getElementById('bottle-size').value;
+            const mgAmount = document.getElementById('mg-amount').value;
+            const mLAmount = convertDose(5, 1);  // Get the mLAmount from the first calculation
+            const bottleResultElement = document.getElementById('bottle-result');
+
+            if (frequency && days && bottleSize && mLAmount) {
+                const totalDailyDose = mLAmount * frequency;
+                const totalMls = totalDailyDose * days;
+                const totalBottles = Math.ceil(totalMls / bottleSize);
+
+                bottleResultElement.innerHTML = `<div class="highlight">Total daily dose in mL:</div> ${mLAmount} mL x ${frequency} = <span>${totalDailyDose} mL</span>
+                                                 <div class="highlight">Total mL needed:</div> ${totalDailyDose} mL x ${days} = <span>${totalMls} mL</span>
+                                                 <div class="highlight">Total bottles needed:</div> ${totalMls} mL / ${bottleSize} mL = <span>${totalBottles} bottles</span>`;
+                bottleResultElement.style.display = 'block';
+            } else {
+                bottleResultElement.style.display = 'none';
+            }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

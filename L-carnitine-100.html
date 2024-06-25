@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L-Carnitine 100mg/mL Oral Solution Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 30px; /* 6 points larger */
+            font-weight: bold;
+            text-align: center;
+        }
+        .drug-name {
+            color: navy;
+            margin-bottom: 0;
+        }
+        .drug-strength {
+            color: darkorange;
+            margin-top: 0;
+        }
+        .dose-calculator {
+            color: black;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .drug-image {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .converter-box, .bottle-calculator-section {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            max-width: 600px;
+            text-align: center;
+        }
+        .converter-box input[type="number"], .bottle-calculator-section input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .converter-box button, .bottle-calculator-section button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .converter-box button:hover, .bottle-calculator-section button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #004d40;
+            max-width: 600px;
+            text-align: center;
+        }
+        .result span {
+            font-weight: bold;
+            color: red;
+        }
+        .highlight {
+            font-weight: bold;
+            color: blue;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-row label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dosing-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .collapsible {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .collapsible:hover {
+            background-color: #004d40;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 1px solid #00796b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: black;
+        }
+        .highlight-red {
+            color: red;
+        }
+        .highlight-blue {
+            color: blue;
+        }
+        .highlight-orange {
+            color: orange;
+        }
+        .highlight-bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="drug-name">L-Carnitine</h1>
+        <h1 class="drug-strength">100mg/mL Oral Solution</h1>
+        <h1 class="dose-calculator">Dose Calculator</h1>
+        <img src="file:///Users/mac/Desktop/Medicine-converter/Photos/L-Carnitine%20100mg:mL%20Oral%20Solution.jpeg" alt="L-Carnitine 100mg/mL Oral Solution" class="drug-image">
+        
+        <div class="box-wrapper">
+            <div class="converter-box">
+                <label for="mg-amount" style="font-weight: bold; color: black;">Enter dose in mg:</label>
+                <input type="number" id="mg-amount" placeholder="Enter dose in mg">
+                <button onclick="convertDose(100, 1)">Calculate mL</button>
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+
+            <div class="bottle-calculator-section">
+                <div class="input-row">
+                    <label for="frequency">Enter frequency (times per day):</label>
+                    <input type="number" id="frequency" placeholder="Enter frequency (times per day)">
+                    <span>daily</span>
+                </div>
+                <div class="input-row">
+                    <label for="days">Enter number of days:</label>
+                    <input type="number" id="days" placeholder="Enter number of days">
+                    <span>days</span>
+                </div>
+                <div class="input-row">
+                    <label for="bottle-size">Enter bottle size (mL):</label>
+                    <input type="number" id="bottle-size" placeholder="Enter bottle size (mL)">
+                    <span>mL</span>
+                </div>
+                <button onclick="calculateBottles()">Calculate Bottles</button>
+                <div id="bottle-result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">Dosing: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight">Carnitine deficiency, treatment:</span></p>
+                <p>Note: Variability in gene-specific mutations and clinical presentations exist; dosage should be individualized based upon patient response and serum carnitine concentrations with consultation with a metabolic specialist.</p>
+                <p><span class="highlight-blue">Primary deficiency:</span> Infants, Children, and Adolescents: Oral: Initial: 50 to 100 mg/kg/day in divided doses; reported frequency varies from 2 to 4 times daily up to every 3 to 4 hours; may titrate slowly as needed based on serum carnitine concentrations; reported range: 100 to 400 mg/kg/day; maximum daily dose: 3,000 mg/day.</p>
+                <p><span class="highlight-blue">Secondary deficiency:</span></p>
+                <p>Infants, Children, and Adolescents: Oral: Initial: 50 to 100 mg/kg/day in divided doses; reported frequency varies from 2 to 4 times daily up to every 3 to 4 hours; may titrate slowly as needed based on patient response; usual dose: 100 to 200 mg/kg/day; some patients may require higher doses (eg, 300 mg/kg/day); maximum daily dose: 3,000 mg/day.</p>
+                <p>IV: 50 to 100 mg/kg as a single dose; titrate based on patient response. In patients with severe metabolic crisis, administer a loading dose based on patient's usual therapy, followed by an equivalent dose given over the next 24 hours as a continuous infusion or divided every 3 to 6 hours; some conditions may require higher daily doses (eg, 300 mg/kg/day).</p>
+                <p><span class="highlight-blue">Carnitine deficiency in patients with end-stage renal disease (ESRD) requiring dialysis:</span> Limited data available:</p>
+                <p>Note: Although described in manufacturer labeling, current guidelines do not support the use of levocarnitine in patients on dialysis.</p>
+                <p>Children and Adolescents: IV: 10 to 20 mg/kg dry body weight after each dialysis session; titrate dose based on serum concentrations; lower doses may be sufficient.</p>
+                <p><span class="highlight-blue">Cyclic vomiting syndrome, supplemental/adjunctive therapy:</span> Limited data available:</p>
+                <p>Children and Adolescents: Oral: Initial: 50 to 100 mg/kg/day in divided doses 2 or 3 times daily; usual maximum dose: 1,000 mg/dose twice daily; higher doses (eg, up to a daily dose of 4,000 mg/day) have been used if needed based on laboratory testing of blood carnitine levels; however, this should be done with caution and careful monitoring of adverse events (eg, diarrhea).</p>
+                <p><span class="highlight-blue">Valproic acid toxicity, acute:</span> Limited data available:</p>
+                <p>Children and Adolescents: Dosing based on level of hepatic involvement and should be adjusted based on clinical response or serum level of valproic acid:</p>
+                <p>No hepatotoxicity: IV: 100 mg/kg/day divided every 6 hours until serum ammonia and valproic acid concentrations begin to decrease and clinical improvement is evident; maximum daily dose: 3,000 mg/day.</p>
+                <p>Symptomatic hyperammonemia or hepatotoxicity: Reported dosing regimens variable: IV: Loading dose: 100 mg/kg; maximum loading dose: 6 g; followed by 15 mg/kg/dose every 4 to 6 hours; continue treatment until serum ammonia concentrations begin to decrease and clinical improvement is evident; patients may require several days of therapy. Doses of 50 mg/kg/dose (up to 3,000 mg/dose) every 8 hours have also been described.</p>
+                <p><span class="highlight-bold">Dosage adjustment for concomitant therapy:</span> Significant drug interactions exist, requiring dose/frequency adjustment or avoidance. Consult drug interactions database for more information.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Altered Kidney Function: Pediatric</button>
+            <div class="content">
+                <p>Oral: There are no dosage adjustments provided in the manufacturer's labeling; safety and efficacy of oral carnitine have not been evaluated in patients with renal insufficiency. Chronic administration of high oral doses to patients with severely compromised renal function or with end-stage renal disease on dialysis may result in accumulation of potentially toxic metabolites.</p>
+                <p>IV: There are no dosage adjustments provided in the manufacturer's labeling; dosage adjustments should be determined based on levocarnitine levels and clinical response.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Hepatic Impairment: Pediatric</button>
+            <div class="content">
+                <p>Oral, IV: There are no dosage adjustments provided in the manufacturer's labelling.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Older Adult</button>
+            <div class="content">
+                <p>Refer to a reliable reference.</p>
+            </div>
+        </div>
+        
+        <p><span class="highlight">Reference:</span> LexiDrugs</p>
+    </div>
+    <script>
+        function convertDose(mgPer5mL, mLPerUnit) {
+            const mgAmount = document.getElementById('mg-amount').value;
+            const resultElement = document.getElementById('result');
+
+            if (mgAmount) {
+                const mLAmount = (mgAmount / mgPer5mL) * mLPerUnit;
+                resultElement.innerHTML = `<span class="highlight">Each dose in mL:</span> ${mgAmount} mg / ${mgPer5mL} mg/5 mL = <span>${mLAmount.toFixed(2).replace(/\.00$/, '')} mL</span>`;
+                resultElement.style.display = 'block';
+                return mLAmount;  // Return the mLAmount for further calculations
+            } else {
+                resultElement.style.display = 'none';
+                return 0;  // Return 0 if no value is entered
+            }
+        }
+
+        function calculateBottles() {
+            const frequency = document.getElementById('frequency').value;
+            const days = document.getElementById('days').value;
+            const bottleSize = document.getElementById('bottle-size').value;
+            const mgAmount = document.getElementById('mg-amount').value;
+            const mLAmount = convertDose(100, 1);  // Get the mLAmount from the first calculation
+            const bottleResultElement = document.getElementById('bottle-result');
+
+            if (frequency && days && bottleSize && mLAmount) {
+                const totalDailyDose = mLAmount * frequency;
+                const totalMls = totalDailyDose * days;
+                const totalBottles = Math.ceil(totalMls / bottleSize);
+
+                bottleResultElement.innerHTML = `<div class="highlight">Total daily dose in mL:</div> ${mLAmount} mL x ${frequency} = <span>${totalDailyDose} mL</span>
+                                                 <div class="highlight">Total mL needed:</div> ${totalDailyDose} mL x ${days} = <span>${totalMls} mL</span>
+                                                 <div class="highlight">Total bottles needed:</div> ${totalMls} mL / ${bottleSize} mL = <span>${totalBottles} bottles</span>`;
+                bottleResultElement.style.display = 'block';
+            } else {
+                bottleResultElement.style.display = 'none';
+            }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

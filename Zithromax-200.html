@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azithromycin (Zithromax) 200mg/5mL Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .drug-name {
+            color: navy;
+            margin-bottom: 0;
+        }
+        .drug-strength {
+            color: darkorange;
+            margin-top: 0;
+        }
+        .dose-calculator {
+            color: black;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .drug-image {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .converter-box {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            max-width: 600px;
+            text-align: center;
+        }
+        .converter-box input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .converter-box button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .converter-box button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #004d40;
+            max-width: 600px;
+            text-align: center;
+        }
+        .result span {
+            font-weight: bold;
+            color: red;
+        }
+        .highlight {
+            font-weight: bold;
+            color: blue;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-row label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dosing-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .collapsible {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .collapsible:hover {
+            background-color: #004d40;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 1px solid #00796b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: black;
+        }
+        .highlight-red {
+            color: red;
+        }
+        .highlight-blue {
+            color: blue;
+        }
+        .highlight-orange {
+            color: orange;
+        }
+        .highlight-bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="drug-name">Azithromycin (Zithromax)</h1>
+        <h1 class="drug-strength">200mg/5mL</h1>
+        <h1 class="dose-calculator">Dose Calculator</h1>
+        <img src="file:///Users/mac/Desktop/Medicine-converter/Photos/Azithromycin%20(Zithromax)%20200mg:5mL%20Suspension.jpeg" alt="Azithromycin (Zithromax) 200mg/5mL" class="drug-image">
+        
+        <div class="box-wrapper">
+            <div class="converter-box">
+                <label for="mg-amount" style="font-weight: bold; color: black;">Enter dose in mg:</label>
+                <input type="number" id="mg-amount" placeholder="Enter dose in mg">
+                <button onclick="convertDose(200, 5)">Calculate mL</button>
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">Dosing: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight-bold">General dosing in Pediatric:</span></p>
+                <p>Infants, Children, and Adolescents:</p>
+                <p>Oral: 5 to 12 mg/kg/dose; typically administered as 10 to 12 mg/kg/dose on day 1 (usual maximum dose: 500 mg/dose) followed by 5 to 6 mg/kg once daily (usual maximum dose: 250 mg/dose) for remainder of treatment duration.</p>
+                <p>IV: 10 mg/kg once daily; maximum dose: 500 mg/dose.</p>
+                <p><span class="highlight-bold">Babesiosis: Limited data available:</span></p>
+                <p>Infants, Children, and Adolescents:</p>
+                <p>Mild to moderate disease: Oral: 10 mg/kg once on day 1 (maximum dose: 500 mg/dose), then 5 mg/kg/dose once daily (maximum dose: 250 mg/dose) in combination with atovaquone; in immunocompromised patients, higher doses (eg, adolescents: 500 to 1,000 mg daily) have been used. Typically treat for a total duration of 7 to 10 days; longer duration may be necessary in some patients with severe or persistent symptoms until parasitemia is cleared (eg, ≥6 weeks with ≥2 weeks of negative blood smears in severely immunocompromised patients).</p>
+                <p>Severe disease: IV: 10 mg/kg/dose once daily; maximum dose: 500 mg. In immunocompromised patients, higher doses (eg, adolescents: 500 to 1,000 mg daily) have been used. Transition to oral azithromycin therapy once symptoms abate for a total duration of 7 to 10 days; longer duration may be necessary in some patients with severe or persistent symptoms until parasitemia is cleared (eg, ≥6 weeks with ≥2 weeks of negative blood smears in severely immunocompromised patients).</p>
+                <p><span class="highlight-bold">Cat scratch disease (Bartonella henselae)(lymphadenitis): Limited data available:</span></p>
+                <p>Infants, Children, and Adolescents weighing ≤45 kg: Oral: 10 mg/kg once on day 1 (maximum dose: 500 mg/dose), then 5 mg/kg/dose once daily for 4 additional days (maximum dose: 250 mg/dose).</p>
+                <p>Children and Adolescents weighing >45 kg: Oral: 500 mg as a single dose on day 1, then 250 mg once daily for 4 additional days.</p>
+                <p><span class="highlight-bold">Chancroid (Haemophilus ducreyi): Limited data available:</span></p>
+                <p>Infants and Children <45 kg: Oral: 20 mg/kg as a single dose; maximum dose: 1,000 mg/dose.</p>
+                <p>Children ≥45 kg and Adolescents: Oral: 1,000 mg as a single dose.</p>
+                <p><span class="highlight-bold">Chlamydia trachomatis infection:</span></p>
+                <p>Urogenital/anogenital tract or oropharyngeal infection (eg, cervicitis [including presumptive treatment], urethritis): Children <8 years weighing ≥45 kg or Children ≥8 years and Adolescents: Oral: 1,000 mg as a single dose. For presumptive treatment of cervicitis, if the patient is at risk for gonorrhea or lives in a community where gonorrhea prevalence is high, consider also treating for gonococcal infection.</p>
+                <p>Pneumonia, congenital: Infants: Oral, IV: 20 mg/kg/dose once daily for 3 days.</p>
+                <p><span class="highlight-bold">Cholera (Vibrio cholerae), treatment: Limited data available:</span></p>
+                <p>Infants, Children, and Adolescents: Oral: 20 mg/kg as a single dose in combination with hydration; maximum dose: 1,000 mg/dose.</p>
+                <p><span class="highlight-bold">Cystic fibrosis; chronic lung maintenance:</span> Limited data available; dosing regimen variable: Note: Recommended for use in patients with a history of Pseudomonas aeruginosa; may also be considered in patients without Pseudomonas who experience frequent exacerbations. Patients should be screened for nontuberculous mycobacterial infection prior to treatment (if able) and azithromycin should not be used if present.</p>
+                <p>Weight-directed dosing:</p>
+                <p>Infants ≥6 months, Children, and Adolescents: Oral: 10 mg/kg/dose 3 times weekly; maximum dose: 500 mg/dose.</p>
+                <p>Fixed dosing:</p>
+                <p>Children ≥6 years and Adolescents:</p>
+                <p>18 to <36 kg: Oral: 250 mg 3 times weekly (Monday, Wednesday, Friday).</p>
+                <p>≥36 kg: Oral: 500 mg 3 times weekly (Monday, Wednesday, Friday).</p>
+                <p><span class="highlight-bold">Diarrhea, infectious:</span></p>
+                <p>Campylobacter infection:</p>
+                <p>Infants, Children, and Adolescents: Oral: 10 mg/kg/dose once daily for 3 days; patients with HIV should receive treatment for 5 days; maximum dose: 500 mg/dose.</p>
+                <p>Shigellosis:</p>
+                <p>Patients without HIV: Infants, Children, and Adolescents:</p>
+                <p>5-day regimen: Oral: 12 mg/kg once on day 1 (maximum dose: 500 mg/dose), followed by 5 mg/kg/dose once daily on days 2 to 5 (maximum dose: 250 mg/dose).</p>
+                <p>3-day regimen: Oral: 10 mg/kg/dose once daily for 3 days; maximum dose: 500 mg/dose.</p>
+                <p>Patients with HIV: Adolescents: Oral: 500 mg once daily for 5 days.</p>
+                <p><span class="highlight-bold">Endocarditis, prophylaxis before invasive dental procedures (alternative agent):</span> Limited data available:</p>
+                <p>Note: Alternative agent for use in patients with penicillin or ampicillin allergy. Recommended only in patients who are at highest risk for infective endocarditis (IE) or adverse outcomes (eg, history of IE, cardiac valve repair using prosthetic valves or material, unrepaired cyanotic congenital heart disease [CHD], left ventricular assist device or implantable heart, repaired CHD with prosthetic material or device during first 6 months after procedure, pulmonary artery valve or conduit placement [eg, Melody valve, Contegra conduit], repaired CHD with residual defects at the site or adjacent to site of prosthetic patch or device, heart transplant recipients with cardiac valvulopathy).</p>
+                <p>Infants, Children, and Adolescents: Oral: 15 mg/kg as a single dose administered 30 to 60 minutes before dental procedure; maximum dose: 500 mg/dose.</p>
+                <p><span class="highlight-bold">Gonococcal infection, uncomplicated infections of the cervix, urethra, or rectum (alternative agent):</span> Limited data available: Note: Only for use if ceftriaxone is not available or not feasible.</p>
+                <p>Children >45 kg and Adolescents: Oral: 2,000 mg as a single dose in combination with IM gentamicin. Note: For treatment failure, consult an infectious diseases specialist and report to the CDC through state and local health departments within 24 hours of diagnosis.</p>
+                <p><span class="highlight-bold">Lyme disease (Borrelia spp. infection), erythema migrans (alternative agent):</span> Limited data available:</p>
+                <p>Infants, Children, and Adolescents: Oral: 10 mg/kg/dose once daily for 7 days; maximum dose: 500 mg/dose. Note: Due to lower efficacy, should only be used when first-line agents cannot be used.</p>
+                <p><span class="highlight-bold">Meningococcal disease, chemoprophylaxis for high-risk contacts (alternative agent):</span> Infants, Children, and Adolescents: Oral: 10 mg/kg as a single dose; maximum dose: 500 mg/dose.</p>
+                <p><span class="highlight-bold">Mycobacterium avium complex (MAC) infection (HIV-exposed/-infected):</span></p>
+                <p>Infants and Children:</p>
+                <p>Primary prophylaxis (patients who meet age-specific CD4 count thresholds): Oral: 20 mg/kg once weekly (maximum dose: 1,200 mg/dose) (preferred regimen) or alternatively, 5 mg/kg/dose once daily (maximum dose: 250 mg/dose); may be discontinued in children ≥2 years of age receiving stable antiretroviral therapy (ART) for ≥6 months and experiencing sustained (>3 months) CD4 count recovery well above age-specific targets.</p>
+                <p>Treatment (alternative to clarithromycin): Oral: 10 to 12 mg/kg/dose once daily as part of an appropriate combination regimen; maximum dose: 500 mg/dose; continue therapy for at least 12 months; following completion of treatment, initiate long-term suppression (secondary prophylaxis).</p>
+                <p>Long-term suppression (secondary prophylaxis) (alternative to clarithromycin): Oral: 5 mg/kg/dose once daily as part of an appropriate combination regimen; consideration can be given to discontinuation of therapy in children ≥2 years when patient has completed ≥12 months of therapy, has no signs/symptoms of MAC disease, and has sustained (≥6 months) CD4 count recovery meeting age-specific thresholds in response to stable ART.</p>
+                <p>Adolescents:</p>
+                <p>Primary prophylaxis (patients with CD4 count <50 cells/mm3 who are not initiated on fully suppressive ART): Oral: 1,200 mg once weekly (preferred) or 600 mg twice weekly; may discontinue prophylaxis when patient is initiated on effective ART.</p>
+                <p>Treatment and long-term suppression (secondary prophylaxis): Oral: 500 to 600 mg daily as part of an appropriate combination regimen; may discontinue when patient has completed ≥12 months of therapy, has no signs or symptoms of MAC disease, and has sustained (≥6 months) CD4 count >100 cells/mm3 in response to ART.</p>
+                <p><span class="highlight-bold">Otitis media, acute (AOM) (alternative agent for patients who cannot tolerate beta-lactam antibiotics):</span> Note: Not recommended for routine empiric use due to limited efficacy against Streptococcus pneumoniae and Haemophilus influenzae.</p>
+                <p>Infants ≥6 months, Children, and Adolescents:</p>
+                <p>Single-dose regimen: Oral: 30 mg/kg once as a single dose; maximum dose: 1,500 mg/dose; if patient vomits within 30 minutes of dose, repeat dosing has been administered, although limited safety data are available.</p>
+                <p>Three-day regimen: Oral: 10 mg/kg/dose once daily for 3 days; maximum dose: 500 mg/dose. Note: For recurrent or persistent infections, doses of 20 mg/kg/dose once daily for 3 days have been described in patients ≥6 months to <6 years of age.</p>
+                <p>Five-day regimen: Oral: 10 mg/kg once on day 1 (maximum dose: 500 mg/dose), followed by 5 mg/kg/dose (maximum dose: 250 mg/dose) once daily on days 2 to 5.</p>
+                <p><span class="highlight-bold">Peritonitis (peritoneal dialysis), prophylaxis for patients receiving peritoneal dialysis who require dental procedures:</span></p>
+                <p>Infants, Children, and Adolescents: Oral: 15 mg/kg administered 30 to 60 minutes before dental procedure; maximum dose: 500 mg/dose.</p>
+                <p><span class="highlight-bold">Pertussis:</span></p>
+                <p>Infants 1 to <6 months: Oral, IV: 10 mg/kg/dose once daily for 5 days.</p>
+                <p>Infants ≥6 months, Children, and Adolescents: Oral, IV: 10 mg/kg once on day 1 (maximum dose: 500 mg/dose), followed by 5 mg/kg/dose once daily on days 2 to 5 (maximum dose: 250 mg/dose).</p>
+                <p><span class="highlight-bold">Pneumonia, community acquired (presumed atypical pneumonia or proven C. pneumoniae or M. pneumoniae infection):</span></p>
+                <p>Mild infection or step-down therapy: Infants >3 months, Children, and Adolescents: Oral: 10 mg/kg once on day 1 (maximum dose: 500 mg/dose), followed by 5 mg/kg/dose (maximum dose: 250 mg/dose) once daily on days 2 to 5.</p>
+                <p>Severe infection: Infants >3 months, Children, and Adolescents: IV: 10 mg/kg/dose once daily for at least 2 days (maximum dose: 500 mg/dose); when able transition to the oral route with a single daily dose of 5 mg/kg/dose (maximum dose: 250 mg/dose) to complete a 5-day course of therapy.</p>
+                <p><span class="highlight-bold">Recurrent asthma-like symptoms, reduction in duration:</span> Limited data available: Children ≤3 years: Oral: 10 mg/kg/dose once daily for 3 days; dosing based on a randomized placebo-controlled trial (n=72; episodes of recurrent asthma-like symptoms analyzed=148; mean age: 2 ± 0.6 years); patients were diagnosed with recurrent troublesome lung symptoms (asthma-like episodes) and included in the study if they had ≥5 episodes in 6 months, persistent symptoms for ≥4 weeks, or previously experienced a severe acute episode requiring an oral steroid or hospital admission; patients presenting with ≥3 days of consecutive symptoms were randomized to azithromycin or placebo. Patients received a beta-2 agonist, with the potential to receive inhaled corticosteroids (82%), montelukast (60%), and/or oral prednisolone as well. Children who received azithromycin experienced fewer days of symptoms (3.4 days) as compared to those who received placebo (7.7 days; p<0.0001); the biggest impact was noted when azithromycin was given before day 6 of symptoms.</p>
+                <p><span class="highlight-bold">Rhinosinusitis, bacterial:</span> Infants ≥6 months, Children, and Adolescents: Oral: 10 mg/kg/dose once daily for 3 days; maximum dose: 500 mg/dose; Note: Although FDA approved, macrolides are not recommended for empiric therapy due to high rates of resistance.</p>
+                <p><span class="highlight-bold">Streptococcus, group A; pharyngitis/tonsillitis (alternative agent for severe penicillin allergy):</span></p>
+                <p>Five-day regimen: Children and Adolescents: Oral: 12 mg/kg/dose once daily for 5 days; maximum dose: 500 mg/dose.</p>
+                <p>Three-day regimen: Limited data available: Children and Adolescents: Oral: 20 mg/kg/dose once daily for 3 days; maximum dose: 1,000 mg/dose.</p>
+                <p><span class="highlight-bold">Typhoid fever (Salmonella typhi or Salmonella paratyphi infection), treatment:</span> Limited data available:</p>
+                <p>Children and Adolescents: Oral: 10 mg/kg/dose (maximum dose: 500 mg/dose) once daily for 7 days or 20 mg/kg/dose (maximum dose: 1,000 mg/dose) once daily for 5 to 7 days.</p>
+                <p><span class="highlight-bold">Dosing: Altered Kidney Function: Pediatric:</span></p>
+                <p>Altered kidney function: Infants, Children, and Adolescents: Oral, IV:</p>
+                <p>Mild to severe impairment: There are no dosage adjustments provided in the manufacturer's labeling; however, some experts suggest that no dosage adjustment is necessary.</p>
+                <p>Hemodialysis: There are no dosage adjustments provided in the manufacturer's labeling; however, some experts suggest no dosage adjustment or supplemental doses are necessary.</p>
+                <p>Peritoneal dialysis: There are no dosage adjustments provided in the manufacturer's labeling; however, some experts suggest no dosage adjustment or supplemental doses are necessary. Based on adult information, azithromycin is not removed with continuous ambulatory peritoneal dialysis.</p>
+                <p>Continuous renal replacement therapy (CRRT): There are no dosage adjustments provided in the manufacturer's labeling; however, some experts suggest no dosage adjustment or supplemental doses are necessary.</p>
+                <p><span class="highlight-bold">Dosing: Hepatic Impairment: Pediatric:</span></p>
+                <p>Azithromycin is predominantly hepatically eliminated; however, there is no dosage adjustment provided in the manufacturer's labeling. Use with caution due to the potential for hepatotoxicity (rare); discontinue immediately for signs or symptoms of hepatitis.</p>
+            </div>
+        </div>
+        
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">Dosing: Adult</button>
+            <div class="content">
+                <p>Refer to a reliable resource</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function convertDose(mgPer5mL, mLPerDose) {
+            var mgAmount = document.getElementById('mg-amount').value;
+            var result = document.getElementById('result');
+            if (mgAmount && mgAmount > 0) {
+                var mLAmount = (mgAmount / mgPer5mL) * mLPerDose;
+                result.innerHTML = 'The dose is ' + mLAmount.toFixed(2) + ' mL.';
+                result.style.display = 'block';
+                if (mgAmount > 500) {
+                    result.innerHTML += ' <span>Please be cautious, the dose exceeds the usual maximum dose.</span>';
+                }
+            } else {
+                result.innerHTML = 'Please enter a valid dose in mg.';
+                result.style.display = 'block';
+            }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyclosporin (Neoral) 100mg/mL 50mL Solution Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="peripheral-container">
+        <h2>Cyclosporin (Neoral) <span class="strength">100mg/mL</span> 50mL Solution Dose Calculator</h2>
+        <div class="converter-box">
+            <input type="number" id="mg-amount" placeholder="Enter amount in mg"><span class="mg-unit">mg</span>
+            <button onclick="convertDose('Cyclosporin (Neoral) 100mg/mL 50mL Solution', 100, 1, 1000)">Convert to mL</button>
+            <p id="result"></p>
+            <p id="warning" class="warning"></p>
+        </div>
+        <div id="general-dosing" class="dosing-box">
+            <h3>General Dosing</h3>
+            <p><span class="highlight">General dosing information for Cyclosporin (Neoral) 100mg/mL 50mL Solution will be provided here.</span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

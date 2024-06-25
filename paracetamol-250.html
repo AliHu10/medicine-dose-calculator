@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paracetamol (Adol) 250mg/5mL Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .drug-name {
+            color: navy;
+            margin-bottom: 0;
+        }
+        .drug-strength {
+            color: darkorange;
+            margin-top: 0;
+        }
+        .dose-calculator {
+            color: black;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .drug-image {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .converter-box, .bottle-calculator-section {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            max-width: 600px;
+            text-align: center;
+        }
+        .converter-box input[type="number"], .bottle-calculator-section input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .converter-box button, .bottle-calculator-section button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .converter-box button:hover, .bottle-calculator-section button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #004d40;
+            max-width: 600px;
+            text-align: center;
+        }
+        .result span {
+            font-weight: bold;
+            color: red;
+        }
+        .highlight {
+            font-weight: bold;
+            color: blue;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-row label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dosing-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .collapsible {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .collapsible:hover {
+            background-color: #004d40;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 1px solid #00796b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="drug-name">Paracetamol (Adol)</h1>
+        <h1 class="drug-strength">250mg/5mL</h1>
+        <h1 class="dose-calculator">Dose Calculator</h1>
+        <img src="file:///Users/mac/Desktop/Medicine-converter/Photos/Paracetamol%20(Adol)%20250mg%205mL%20Syrup.jpg" alt="Paracetamol (Adol) 250mg/5mL" class="drug-image">
+        
+        <div class="box-wrapper">
+            <div class="converter-box">
+                <label for="mg-amount" style="font-weight: bold; color: black;">Enter dose in mg:</label>
+                <input type="number" id="mg-amount" placeholder="Enter dose in mg">
+                <button onclick="convertDose(250, 5)">Calculate mL</button>
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+
+            <div class="bottle-calculator-section">
+                <div class="input-row">
+                    <label for="frequency">Enter frequency (times per day):</label>
+                    <input type="number" id="frequency" placeholder="Enter frequency (times per day)">
+                    <span>daily</span>
+                </div>
+                <div class="input-row">
+                    <label for="days">Enter number of days:</label>
+                    <input type="number" id="days" placeholder="Enter number of days">
+                    <span>days</span>
+                </div>
+                <div class="input-row">
+                    <label for="bottle-size">Enter bottle size (mL):</label>
+                    <input type="number" id="bottle-size" placeholder="Enter bottle size (mL)">
+                    <span>mL</span>
+                </div>
+                <button onclick="calculateBottles()">Calculate Bottles</button>
+                <div id="bottle-result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">Dosing: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight">Dosage guidance:</span> 
+                Dosage form information: Oral liquids are available in multiple concentrations (eg, 160 mg per 5 mL, 500 mg per 5 mL, 500 mg per 15 mL); verify appropriate product concentration; dose should be clearly presented as "mg."</p>
+
+                <p><span class="highlight">Dosing: Altered Kidney Function:</span> Pediatric: Altered kidney function: Infants, Children, and Adolescents:</p>
+                <p>Oral, rectal: Mild to severe impairment: There are no dosage adjustments provided in the manufacturer's labeling; based on adult pharmacokinetic studies, dosage adjustment may not be necessary for short courses. In adult pharmacokinetic studies, plasma concentrations of acetaminophen did not differ in renal impairment patients when compared to healthy patients for short courses of treatment (ie, 3 days); however, accumulation of the glucuronide and sulfate conjugate metabolites in renal impairment has been described following a single dose of acetaminophen up to repeat dosing for 10 days; the clinical significance of this finding is unknown.</p>
+                <p>IV:
+                Mild to moderate impairment: There are no dosage adjustments provided in the manufacturer's labeling.</p>
+                <p>Severe impairment (CrCl <30 mL/minute): The manufacturer's labeling for IV acetaminophen states that longer dosing intervals and a reduced total daily dose may be warranted in patients with severe kidney impairment; use with caution.</p>
+                <p>Hemodialysis, intermittent: Acetaminophen and its conjugates are readily dialyzable: No dosage adjustment necessary when used for mild to moderate pain.</p>
+                <p>Peritoneal dialysis: Not dialyzed: No dosage adjustment necessary when used for mild to moderate pain.</p>
+                <p><span class="highlight">Dosing: Hepatic Impairment:</span> Pediatric: Use with caution. Limited, low-dose therapy is usually well-tolerated in hepatic disease/cirrhosis; however, cases of hepatotoxicity at daily acetaminophen dosages <4,000 mg/day have been reported. Avoid chronic use in hepatic impairment.</p>
+
+                <p>For specific dosing information, refer to a reliable resource.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Adult</button>
+            <div class="content">
+                <p>Pain and/or fever</p>
+                <p>Pain (mild to moderate) and/or fever (monotherapy or as an adjunct): Note: When calculating total daily dose, confirm that all sources (eg, prescription, OTCs, combinations) are included. Life-threatening acetaminophen-induced hepatotoxicity has been associated with doses >4 g/day. Although doses up to 4 g/day are generally well tolerated, hepatotoxicity has been reported rarely even with doses below this limit. Due to risk for hepatotoxicity, some experts recommend a lower maximum dose of 3 g/day in adults with normal liver function, particularly when used for longer durations (eg, >7 days). An even lower total daily dose (eg, 2 g/day) or avoidance may be preferred in patients with certain risk factors for hepatotoxicity, such as heavy alcohol use, malnutrition, fasting, low body weight, advanced age, febrile illness, select liver disease, and concomitant use of interacting drugs.</p>
+                <p>Oral: 325 to 650 mg every 4 to 6 hours as needed or 1 g every 6 hours as needed; maximum dose: 4 g/day. See "Note" above regarding maximum dose.</p>
+                <p>OTC labeling (patient-guided therapy): Note: Dosage recommendations, including maximum doses, vary among OTC manufacturers.</p>
+                <p>Immediate release:
+                Regular strength (325 mg/tablet): 2 tablets (650 mg) every 4 to 6 hours as needed; maximum daily dose: 10 tablets/day (3.25 g/day).</p>
+                <p>Extra strength (500 mg/tablet): 2 tablets (1 g) every 6 hours as needed; maximum daily dose: 6 tablets/day (3 g/day).</p>
+                <p>Extended release (650 mg/tablet): 2 tablets (1.3 g) every 8 hours as needed; maximum daily dose: 6 tablets/day (3.9 g/day).</p>
+                <p>IV:
+                ≥50 kg: 650 mg every 4 hours or 1 g every 6 hours; maximum single dose: 1 g/dose; maximum daily dose: 4 g/day.</p>
+                <p><50 kg: 12.5 mg/kg every 4 hours or15 mg/kg every 6 hours; maximum single dose: 15 mg/kg/dose (≤750 mg/dose); maximum daily dose: 75 mg/kg/day (≤3.75 g/day). Note: Some experts recommend this reduced dosing if used in patients with chronic alcoholism, malnutrition, or dehydration regardless of weight.</p>
+                <p>Rectal: 325 to 650 mg every 4 to 6 hours as needed; maximum daily dose: 3.9 g/day. Note: Absorption is irregular; bioavailability may be reduced by ~10% to 20% relative to oral administration.</p>
+                <p><span class="highlight">Dosing: Older Adult:</span> Pain (acute) or fever: Oral, IV: Refer to adult dosing.</p>
+                <p>Persistent pain (off-label): Adults ≥75 years: Oral: Initial: 325 to 500 mg every 4 hours or 500 to 1,000 mg every 6 hours</p>
+                <p>Maximum: ≤4,000 mg/day. In older adults with hepatic impairment or history of alcohol abuse being treated for persistent pain, do not exceed a maximum of 2,000 to 3,000 mg/day.</p>
+                <p><span class="highlight">Dosing: Altered Kidney Function:</span> Adult: The renal dosing recommendations are based upon the best available evidence and clinical expertise. Senior Editorial Team: Bruce Mueller, PharmD, FCCP, FASN, FNKF; Jason A. Roberts, PhD, BPharm (Hons), B App Sc, FSHP, FISAC; Michael Heung, MD, MS.</p>
+                <p>IV, Oral, Rectal:
+                Mild to severe impairment: No dosage adjustment likely to be necessary. The manufacturer's labeling for IV acetaminophen states that longer dosing intervals and a reduced total daily dose may be warranted in patients with severe kidney impairment (CrCl ≤30 mL/minute); however, acetaminophen concentrations and half-life are increased but similar to those in patients with normal renal function. Glucuronide and sulfate conjugate metabolites accumulate in renal impairment, but the clinical effects are unknown.</p>
+                <p>Hemodialysis, intermittent (thrice weekly): Acetaminophen and its conjugates are readily dialyzable: No dosage adjustment necessary.</p>
+                <p>Peritoneal dialysis: Not dialyzed: No dosage adjustment necessary.</p>
+                <p>CRRT: Dialyzed: No dosage adjustment necessary.</p>
+                <p>PIRRT (eg, sustained, low-efficiency diafiltration): No dosage adjustment necessary.</p>
+                <p><span class="highlight">Dosing: Hepatic Impairment:</span> Adult: The hepatic dosing recommendations are based upon the best available evidence and clinical expertise. Senior Editorial Team: Matt Harris, PharmD, MHS, BCPS, FAST, Jeong Park, PharmD, MS, BCTXP, FCCP, FAST, Arun Jesudian, MD, Sasan Sakiani, MD.</p>
+                <p>Note: Risk of acetaminophen-induced liver injury with preexisting liver insufficiency has been observed to occur in an increased dose-duration dependent fashion, especially in the presence of certain risk factors (eg, excessive alcohol intake [>3 drinks/day for males; >2 drinks/day for females], malnutrition, fasted state [eg, ≥1 day], low BMI).</p>
+                <p>Initial or dose titration in patients with preexisting liver cirrhosis or dosage adjustment in patients with chronic, worsening hepatic function during treatment (eg, progression from Child-Turcotte-Pugh class A to B): 
+                Child-Turcotte-Pugh class A: 
+                Patients actively consuming alcohol while taking acetaminophen (regardless of amount or frequency): IV, oral, rectal: Use of the lowest effective dose is preferred (eg, 325 to 500 mg every 4 to 6 hours); use with caution. Maximum total daily dose: 2 g per day from all acetaminophen sources (any duration of treatment).</p>
+                <p>Patients who are not actively consuming alcohol: IV, oral, rectal:
+                Short-term use (≤14 days): No dosage adjustment necessary. Maximum total daily dose: 4 g per day from all acetaminophen sources.</p>
+                <p>Long-term use (>14 days): Use of the lowest effective dose is preferred (eg, 325 to 500 mg every 4 to 6 hours); use with caution. Maximum total daily dose: 3 g per day from all acetaminophen sources.</p>
+                <p>Child-Turcotte-Pugh class B:
+                Patients actively consuming alcohol while taking acetaminophen (regardless of amount or frequency): IV, oral, rectal: Use of the lowest effective dose is preferred (eg, 325 mg every 4 to 6 hours); use with caution. Maximum total daily dose: 2 g per day from all acetaminophen sources (any duration of treatment).</p>
+                <p>Patients who are not actively consuming alcohol: IV, oral, rectal:
+                Short-term use (≤14 days): Use of the lowest effective dose is preferred (eg, 325 to 500 mg every 4 to 6 hours); use with caution. Maximum total daily dose: 3 g per day from all acetaminophen sources.</p>
+                <p>Long-term use (>14 days): Use of the lowest effective dose is preferred (eg, 325 mg every 4 to 6 hours); use with caution. Maximum total daily dose: 2 g per day from all acetaminophen sources.</p>
+                <p>Child-Turcotte-Pugh class C:
+                All patients (regardless of alcohol consumption): 
+                IV: Use generally not recommended. If use of IV acetaminophen is deemed necessary, intermittent (eg, as needed) dosing instead of scheduled (eg, around-the-clock) dosing is preferred due to lack of data regarding accumulation; use with extreme caution. Maximum total daily dose: 2 g per day from all acetaminophen sources. Note: The manufacturer’s labeling for the IV formulation states use is contraindicated in severe hepatic impairment or severe active liver disease.</p>
+                <p>Oral, rectal: Use of the lowest effective dose is preferred (eg, 325 mg every 4 to 6 hours); use with caution. Maximum total daily dose: 2 g per day from all acetaminophen sources (any duration of treatment).</p>
+            </div>
+        </div>
+        
+        <p><span class="highlight">Reference:</span> LexiDrugs</p>
+    </div>
+    <script>
+        function convertDose(mgPerML, mLPerUnit) {
+            const mgAmount = document.getElementById('mg-amount').value;
+            const resultElement = document.getElementById('result');
+
+            if (mgAmount) {
+                const mLAmount = (mgAmount / mgPerML) * mLPerUnit;
+                resultElement.innerHTML = `<span class="highlight">Each dose in mL:</span> ${mgAmount} mg / ${mgPerML} mg/mL = <span>${mLAmount.toFixed(2).replace(/\.00$/, '')} mL</span>`;
+                resultElement.style.display = 'block';
+                return mLAmount;  // Return the mLAmount for further calculations
+            } else {
+                resultElement.style.display = 'none';
+                return 0;  // Return 0 if no value is entered
+            }
+        }
+
+        function calculateBottles() {
+            const frequency = document.getElementById('frequency').value;
+            const days = document.getElementById('days').value;
+            const bottleSize = document.getElementById('bottle-size').value;
+            const mgAmount = document.getElementById('mg-amount').value;
+            const mLAmount = convertDose(250, 5);  // Get the mLAmount from the first calculation
+            const bottleResultElement = document.getElementById('bottle-result');
+
+            if (frequency && days && bottleSize && mLAmount) {
+                const totalDailyDose = mLAmount * frequency;
+                const totalMls = totalDailyDose * days;
+                const totalBottles = Math.ceil(totalMls / bottleSize);
+
+                bottleResultElement.innerHTML = `<div class="highlight">Total daily dose in mL:</div> ${mLAmount} mL x ${frequency} = <span>${totalDailyDose} mL</span>
+                                                 <div class="highlight">Total mL needed:</div> ${totalDailyDose} mL x ${days} = <span>${totalMls} mL</span>
+                                                 <div class="highlight">Total bottles needed:</div> ${totalMls} mL / ${bottleSize} mL = <span>${totalBottles} bottles</span>`;
+                bottleResultElement.style.display = 'block';
+            } else {
+                bottleResultElement.style.display = 'none';
+            }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

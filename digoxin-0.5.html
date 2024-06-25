@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digoxin (Lanoxin) 0.5mg/mL Syrup Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="peripheral-container">
+        <h2>Digoxin (Lanoxin) <span class="strength">0.5mg/mL</span> Syrup Dose Calculator</h2>
+        <div class="converter-box">
+            <input type="number" id="mg-amount" placeholder="Enter amount in mg"><span class="mg-unit">mg</span>
+            <button onclick="convertDose('Digoxin (Lanoxin) 0.5mg/mL Syrup', 0.5, 1, 1000)">Convert to mL</button>
+            <p id="result"></p>
+            <p id="warning" class="warning"></p>
+        </div>
+        <div id="general-dosing" class="dosing-box">
+            <h3>General Dosing</h3>
+            <p><span class="highlight">General dosing information for Digoxin (Lanoxin) 0.5mg/mL Syrup will be provided here.</span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

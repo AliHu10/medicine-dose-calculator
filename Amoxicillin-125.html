@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amoxicillin (Amoxil) 125mg/5mL Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .drug-name {
+            color: navy;
+            margin-bottom: 0;
+        }
+        .drug-strength {
+            color: darkorange;
+            margin-top: 0;
+        }
+        .dose-calculator {
+            color: black;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .drug-image {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .converter-box, .bottle-calculator-section {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            max-width: 600px;
+            text-align: center;
+        }
+        .converter-box input[type="number"], .bottle-calculator-section input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .converter-box button, .bottle-calculator-section button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .converter-box button:hover, .bottle-calculator-section button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #004d40;
+            max-width: 600px;
+            text-align: center;
+        }
+        .result span {
+            font-weight: bold;
+            color: red;
+        }
+        .highlight {
+            font-weight: bold;
+            color: blue;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-row label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dosing-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .collapsible {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .collapsible:hover {
+            background-color: #004d40;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 1px solid #00796b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: black;
+        }
+        .highlight-red {
+            color: red;
+        }
+        .highlight-blue {
+            color: blue;
+        }
+        .highlight-orange {
+            color: orange;
+        }
+        .highlight-bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="drug-name">Amoxicillin (Amoxil)</h1>
+        <h1 class="drug-strength">125mg/5mL</h1>
+        <h1 class="dose-calculator">Dose Calculator</h1>
+        <img src="file:///Users/mac/Desktop/Medicine-converter/Photos/Amoxicillin%20(Amoxil)%20125mg:5mL%20Suspension.jpeg" alt="Amoxicillin (Amoxil) 125mg/5mL" class="drug-image">
+        
+        <div class="box-wrapper">
+            <div class="converter-box">
+                <label for="mg-amount" style="font-weight: bold; color: black;">Enter dose in mg:</label>
+                <input type="number" id="mg-amount" placeholder="Enter dose in mg">
+                <button onclick="convertDose(125, 5)">Calculate mL</button>
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+
+            <div class="bottle-calculator-section">
+                <div class="input-row">
+                    <label for="frequency">Enter frequency (times per day):</label>
+                    <input type="number" id="frequency" placeholder="Enter frequency (times per day)">
+                    <span>daily</span>
+                </div>
+                <div class="input-row">
+                    <label for="days">Enter number of days:</label>
+                    <input type="number" id="days" placeholder="Enter number of days">
+                    <span>days</span>
+                </div>
+                <div class="input-row">
+                    <label for="bottle-size">Enter bottle size (mL):</label>
+                    <input type="number" id="bottle-size" placeholder="Enter bottle size (mL)">
+                    <span>mL</span>
+                </div>
+                <button onclick="calculateBottles()">Calculate Bottles</button>
+                <div id="bottle-result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">Dosing: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight-bold">General dosing:</span></p>
+                <p>Oral:</p>
+                <p>Infants, Children, and Adolescents:</p>
+                <p>Standard-dose regimen: Oral: 40 to 45 mg/kg/day in divided doses every 8 hours; maximum dose: 500 mg/dose.</p>
+                <p>High-dose regimen: 80 to 90 mg/kg/day divided every 12 hours; a maximum dose has not been established; however, some experts suggest a maximum daily dose of 4,000 mg/day.</p>
+                
+                <button type="button" class="collapsible">Anthrax:</button>
+                <div class="content">
+                    <p>Infants, Children, and Adolescents:</p>
+                    <p>Postexposure prophylaxis, exposure to aerosolized spores: Oral: 75 mg/kg/day in divided doses every 8 hours for 60 days after exposure; maximum dose: 1,000 mg/dose.</p>
+                    <p>Cutaneous, without systemic involvement: Oral: 75 mg/kg/day in divided doses every 8 hours; maximum dose: 1,000 mg/dose. Duration of therapy: 7 to 10 days for naturally acquired infection, up to 60 days for biological weapon-related exposure.</p>
+                    <p>Systemic, oral step-down therapy: Oral: 75 mg/kg/day in divided doses every 8 hours as part of appropriate combination therapy to complete 60-day course; maximum dose: 1,000 mg/dose.</p>
+                </div>
+
+                <button type="button" class="collapsible">Endocarditis, prophylaxis before invasive dental procedures:</button>
+                <div class="content">
+                    <p>Limited data available: Note: Recommended only in patients who are at highest risk for infective endocarditis (IE) or adverse outcomes (eg, history of IE, cardiac valve repair using prosthetic valves or material, unrepaired cyanotic congenital heart disease [CHD], left ventricular assist device or implantable heart, repaired CHD with prosthetic material or device during first 6 months after procedure, pulmonary artery valve or conduit placement [eg, Melody valve, Contegra conduit], repaired CHD with residual defects at the site or adjacent to site of prosthetic patch or device, heart transplant recipients with cardiac valvulopathy).</p>
+                    <p>Infants, Children, and Adolescents: Oral: 50 mg/kg as a single dose administered 30 to 60 minutes prior to dental procedure; maximum dose: 2,000 mg/dose.</p>
+                </div>
+
+                <button type="button" class="collapsible">Endocarditis, treatment:</button>
+                <div class="content">
+                    <p>IV [International product]: Infants, Children, and Adolescents: 100 to 200 mg/kg/day divided every 4 to 6 hours; maximum dose: 2,000 mg/dose. Duration and concomitant therapy vary based on organism and presence of native or prosthetic valve.</p>
+                </div>
+
+                <button type="button" class="collapsible">Exit-site or tunnel infection, peritoneal dialysis catheter:</button>
+                <div class="content">
+                    <p>Infants, Children, and Adolescents: Oral: 10 to 20 mg/kg/dose every 24 hours; maximum dose: 1,000 mg/dose.</p>
+                </div>
+
+                <button type="button" class="collapsible">Helicobacter pylori eradication:</button>
+                <div class="content">
+                    <p>Limited data available: Note: Use as part of an appropriate combination regimen; usual duration of therapy is 14 days.</p>
+                    <p>Standard-dose regimen:</p>
+                    <p>Weight-directed dosing: Children and Adolescents: Oral: 50 mg/kg/day in divided doses every 12 hours; maximum dose: 1,000 mg/dose.</p>
+                    <p>Fixed dosing: Children and Adolescents:</p>
+                    <p>15 to <25 kg: Oral: 500 mg twice daily.</p>
+                    <p>25 to <35 kg: Oral: 750 mg twice daily.</p>
+                    <p>≥35 kg: Oral: 1,000 mg twice daily.</p>
+                    <p>High-dose regimen: Note: For use in combination with a proton pump inhibitor and metronidazole when susceptibility is unknown or when H. pylori isolate is resistant to clarithromycin AND metronidazole. Fixed (weight-band) dosing based on a target dose of ~75 mg/kg/day divided twice daily; maximum dose reported: 100 mg/kg/day divided twice daily.</p>
+                    <p>Children and Adolescents:</p>
+                    <p>15 to <25 kg: Oral: 750 mg twice daily.</p>
+                    <p>25 to <35 kg: Oral: 1,000 mg twice daily.</p>
+                    <p>≥35 kg: Oral: 1,500 mg twice daily.</p>
+                </div>
+
+                <button type="button" class="collapsible">Lyme disease (Borrelia spp. infection):</button>
+                <div class="content">
+                    <p>Infants, Children, and Adolescents: Oral: 50 mg/kg/day in divided doses every 8 hours; maximum dose: 500 mg/dose. Duration of therapy depends on clinical syndrome; treat erythema migrans and borrelial lymphocytoma for 14 days, carditis for 14 to 21 days, arthritis (initial, recurrent, or refractory) for 28 days, and acrodermatitis chronica atrophicans for 21 to 28 days.</p>
+                </div>
+
+                <button type="button" class="collapsible">Osteoarticular infection, acute (eg, septic [bacterial] arthritis, osteomyelitis):</button>
+                <div class="content">
+                    <p>Step-down therapy following parenteral treatment (targeted therapy for susceptible pathogen): Limited data available:</p>
+                    <p>Infants, Children, and Adolescents: Oral: 80 to 120 mg/kg/day in divided doses every 6 to 8 hours; maximum daily dose: 4,000 mg/day. Minimum total duration (IV plus oral therapy) is 2 to 3 weeks for septic arthritis and 3 to 4 weeks for osteomyelitis; however, duration should be individualized based on several factors including causative pathogen, response to therapy, and normalization of inflammatory markers.</p>
+                </div>
+
+                <button type="button" class="collapsible">Otitis media, acute (AOM):</button>
+                <div class="content">
+                    <p>High-dose regimen: Note: Preferred in the United States and when activity against penicillin nonsusceptible Streptococcus pneumoniae is desired.</p>
+                    <p>Infants ≥3 months and Children: Oral: 80 to 90 mg/kg/day in divided doses every 12 hours. Maximum dose has not been established for AOM; however, 4,000 mg/day has been suggested.</p>
+                    <p>Standard-dose regimen: Note: Only for use in areas where rates of penicillin nonsusceptible S. pneumoniae are known to be low or if an isolated pathogen is penicillin-susceptible.</p>
+                    <p>Infants ≥3 months and Children: Oral: 40 to 50 mg/kg/day in divided doses every 8 to 12 hours. Maximum daily dose: 1,500 mg/day.</p>
+                    <p>Duration of therapy: For patients with severe or recurrent AOM, tympanic membrane perforation, or who are <2 years of age, treat for 10 days; for patients ≥2 years of age with mild to moderate, nonrecurrent disease without tympanic membrane perforation, shorter durations of 5 to 7 days may be sufficient.</p>
+                </div>
+
+                <button type="button" class="collapsible">Peritonitis, prophylaxis for peritoneal dialysis patients requiring invasive dental procedures:</button>
+                <div class="content">
+                    <p>Infants, Children, and Adolescents: Oral: 50 mg/kg as a single dose administered 30 to 60 minutes before dental procedure; maximum dose: 2,000 mg/dose.</p>
+                </div>
+
+                <button type="button" class="collapsible">Pneumonia, community acquired:</button>
+                <div class="content">
+                    <p>Infants ≥3 months, Children, and Adolescents:</p>
+                    <p>Empiric therapy for presumed bacterial pneumonia: Oral: 90 mg/kg/day in divided doses every 12 hours; maximum daily dose: 4,000 mg/day.</p>
+                    <p>Group A Streptococcus, mild infection or step-down therapy: Oral: 50 to 75 mg/kg/day in divided doses every 12 hours; maximum daily dose: 4,000 mg/day.</p>
+                    <p>Haemophilus influenzae, mild infection or step-down therapy: Oral: 75 to 100 mg/kg/day in divided doses every 8 hours; maximum daily dose: 4,000 mg/day.</p>
+                    <p>Streptococcus pneumoniae, mild infection or step-down therapy (penicillin minimal inhibitory concentration [MIC] ≤2 mcg/mL): Oral: 90 mg/kg/day in divided doses every 12 hours or 45 mg/kg/day in divided doses every 8 hours; maximum daily dose: 4,000 mg/day.</p>
+                    <p>S. pneumoniae, elevated penicillin MIC (penicillin MIC = 2 mcg/mL): Oral: 90 to 100 mg/kg/day in divided doses every 8 hours; dosing based on pharmacokinetic modeling to optimize pharmacodynamic target attainment (time over MIC).</p>
+                    <p>Duration of therapy: For outpatient treatment of uncomplicated disease in patients who respond to therapy, 5 days of therapy is likely adequate. Longer duration (eg, total course of 7 to 10 days) may be necessary in patients with complicated disease or who do not respond quickly to therapy.</p>
+                </div>
+
+                <button type="button" class="collapsible">Pneumococcal infection prophylaxis for anatomic or functional asplenia (eg, sickle cell disease [SCD]):</button>
+                <div class="content">
+                    <p>Note: The decision to discontinue antibiotic prophylaxis after 5 years of age in children with SCD who have not experienced invasive pneumococcal infection and have received recommended pneumococcal immunizations should be individualized.</p>
+                    <p>Infants (as soon as SCD diagnosed or asplenic) and Children <6 years: Oral: 20 mg/kg/day in divided doses every 12 hours; maximum dose: 250 mg/dose.</p>
+                    <p>Children ≥6 years and Adolescents: Oral: 250 mg every 12 hours.</p>
+                </div>
+
+                <button type="button" class="collapsible">Rhinosinusitis, acute bacterial; uncomplicated:</button>
+                <div class="content">
+                    <p>Note: While IDSA guidelines consider amoxicillin/clavulanate as the preferred therapy, AAP guidelines allow amoxicillin for uncomplicated, mild to moderate infections in patients who do not attend daycare and who have not received antibiotics within the last month.</p>
+                    <p>Standard-dose regimen: Note: Recommended in areas where <10% of Streptococcus pneumoniae are penicillin-nonsusceptible.</p>
+                    <p>Children ≥2 years and Adolescents: Oral: 45 mg/kg/day in divided doses every 12 hours.</p>
+                    <p>High-dose regimen: Note: Recommended in areas where ≥10% of S. pneumoniae are penicillin-nonsusceptible.</p>
+                    <p>Children ≥2 years and Adolescents: Oral: 80 to 90 mg/kg/day in divided doses every 12 hours; maximum dose: 2,000 mg/dose.</p>
+                </div>
+
+                <button type="button" class="collapsible">Streptococcus, group A; pharyngitis/tonsillitis:</button>
+                <div class="content">
+                    <p>Children and Adolescents: Oral: 50 mg/kg/day once daily or in divided doses every 12 hours for 10 days; maximum daily dose: 1,000 mg/day.</p>
+                </div>
+
+                <button type="button" class="collapsible">Urinary tract infection, prophylaxis (hydronephrosis, vesicoureteral reflux):</button>
+                <div class="content">
+                    <p>Infants ≤2 months: Oral: 10 to 15 mg/kg once daily; some suggest administration in the evening (drug resides in bladder longer); Note: Due to resistance, amoxicillin should not be used for prophylaxis after 2 months of age.</p>
+                </div>
+
+                <button type="button" class="collapsible">Urinary tract infection, treatment:</button>
+                <div class="content">
+                    <p>Note: Recommended only when pathogen has been proven susceptible. Duration of therapy should be individualized based on patient age, severity/extent of infection, and clinical response; typical duration is 7 to 14 days, though it may be as short as 3 to 5 days (eg, for uncomplicated cystitis in patients ≥2 years of age).</p>
+                    <p>Infants: Oral: 50 to 100 mg/kg/day in divided doses every 12 hours.</p>
+                    <p>Children and Adolescents: Oral: 50 to 100 mg/kg/day in divided doses every 8 hours; maximum dose: 500 mg/dose; for uncomplicated cystitis, may consider 30 mg/kg/day in divided doses every 8 hours.</p>
+                </div>
+
+                <button type="button" class="collapsible">Dosage adjustment for concomitant therapy:</button>
+                <div class="content">
+                    <p>Significant drug interactions exist, requiring dose/frequency adjustment or avoidance. Consult drug interactions database for more information.</p>
+                </div>
+
+                <button type="button" class="collapsible">Dosing: Altered Kidney Function: Pediatric</button>
+                <div class="content">
+                    <p>Oral: There are no dosage adjustments provided in the manufacturer's labeling; however, the following guidelines have been used by some clinicians:</p>
+                    <p>Infants, Children, and Adolescents:</p>
+                    <p>Mild to moderate infection: Dosing based on 25 to 50 mg/kg/day divided every 8 hours:</p>
+                    <p>GFR >30 mL/minute/1.73 m2: No adjustment required.</p>
+                    <p>GFR 10 to 29 mL/minute/1.73 m2: 8 to 20 mg/kg/dose every 12 hours.</p>
+                    <p>GFR <10 mL/minute/1.73 m2: 8 to 20 mg/kg/dose every 24 hours.</p>
+                    <p>Hemodialysis: Moderately dialyzable (20% to 50%); ~30% removed by 3-hour hemodialysis: 8 to 20 mg/kg/dose every 24 hours; give after dialysis.</p>
+                    <p>Peritoneal dialysis: 8 to 20 mg/kg/dose every 24 hours.</p>
+                    <p>Severe infection (high dose): Dosing based on 80 to 90 mg/kg/day divided every 12 hours:</p>
+                    <p>GFR >30 mL/minute/1.73 m2: No adjustment required.</p>
+                    <p>GFR 10 to 29 mL/minute/1.73 m2: 20 mg/kg/dose every 12 hours; do not use the 875 mg tablet.</p>
+                    <p>GFR <10 mL/minute/1.73 m2: 20 mg/kg/dose every 24 hours; do not use the 875 mg tablet.</p>
+                    <p>Hemodialysis: Moderately dialyzable (20% to 50%); ~30% removed by 3-hour hemodialysis: 20 mg/kg/dose every 24 hours; give after dialysis.</p>
+                    <p>Peritoneal dialysis: 20 mg/kg/dose every 24 hours.</p>
+                    <p>IM, IV [International products]:</p>
+                    <p>Children and Adolescents (<40 kg):</p>
+                    <p>GFR >30 mL/minute: No adjustment required.</p>
+                    <p>GFR 10 to 30 mL/minute:</p>
+                    <p>IM: 15 mg/kg/dose every 12 hours.</p>
+                    <p>IV: 25 mg/kg/dose every 12 hours.</p>
+                    <p>GFR <10 mL/minute:</p>
+                    <p>IM: 15 mg/kg once daily.</p>
+                    <p>IV: 25 mg/kg once daily.</p>
+                    <p>Hemodialysis:</p>
+                    <p>IM: 15 mg/kg during dialysis, at the end of the dialysis session, and then 15 mg/kg every 24 hours.</p>
+                    <p>IV: 25 mg/kg prior to dialysis, then 12.5 mg/kg at the end of the dialysis session, then 25 mg/kg once daily.</p>
+                    <p>Peritoneal dialysis:</p>
+                    <p>IM: 15 mg/kg once daily.</p>
+                    <p>IV: 25 mg/kg once daily.</p>
+                    <p>Children and Adolescents (≥40 kg):</p>
+                    <p>IM [International product]:</p>
+                    <p>GFR >30 mL/minute: No dosage adjustment necessary.</p>
+                    <p>GFR 10 to 30 mL/minute: 500 mg every 12 hours.</p>
+                    <p>GFR <10 mL/minute: 500 mg every 24 hours.</p>
+                    <p>Hemodialysis: 500 mg during dialysis, 500 mg at the end of the dialysis session, then 500 mg every 24 hours.</p>
+                    <p>Peritoneal dialysis: 500 mg once daily.</p>
+                    <p>IV [International product]:</p>
+                    <p>GFR >30 mL/minute: No dosage adjustment necessary.</p>
+                    <p>GFR 10 to 30 mL/minute: 1,000 mg as a single dose, then 500 to 1,000 mg every 12 hours.</p>
+                    <p>GFR <10 mL/minute: 1,000 mg as a single dose, then 500 mg/day.</p>
+                    <p>Hemodialysis: 1,000 mg at the end of the dialysis session, then 500 mg every 24 hours.</p>
+                    <p>Peritoneal dialysis: 1,000 mg as a single dose, then 500 mg/day.</p>
+                </div>
+
+                <button type="button" class="collapsible">Dosing: Hepatic Impairment: Pediatric</button>
+                <div class="content">
+                    <p>There are no dosage adjustments provided in the manufacturer's labeling.</p>
+                </div>
+
+                <button type="button" class="collapsible">Dosing: Adult</button>
+                <div class="content">
+                    <p>Usual dosage range:</p>
+                    <p>Oral: 500 mg to 1 g every 8 to 12 hours.</p>
+                    <p>IM [International product]: 500 mg to 1 g every 6 to 8 hours (maximum: 4 g/day).</p>
+                    <p>IV [International product]: 500 mg to 2 g every 4 to 12 hours (maximum: 12 g/day).</p>
+                    <p>For further details, refer to a reliable resource.</p>
+                </div>
+            </div>
+        </div>
+        
+        <p><span class="highlight">Reference:</span> LexiDrugs</p>
+    </div>
+    <script>
+        function convertDose(mgPerML, mLPerUnit) {
+            const mgAmount = document.getElementById('mg-amount').value;
+            const resultElement = document.getElementById('result');
+
+            if (mgAmount) {
+                const mLAmount = (mgAmount / mgPerML) * mLPerUnit;
+                resultElement.innerHTML = `<span class="highlight">Each dose in mL:</span> ${mgAmount} mg / ${mgPerML} mg/mL = <span>${mLAmount.toFixed(2).replace(/\.00$/, '')} mL</span>`;
+                resultElement.style.display = 'block';
+                return mLAmount;  // Return the mLAmount for further calculations
+            } else {
+                resultElement.style.display = 'none';
+                return 0;  // Return 0 if no value is entered
+            }
+        }
+
+        function calculateBottles() {
+            const frequency = document.getElementById('frequency').value;
+            const days = document.getElementById('days').value;
+            const bottleSize = document.getElementById('bottle-size').value;
+            const mgAmount = document.getElementById('mg-amount').value;
+            const mLAmount = convertDose(125, 5);  // Get the mLAmount from the first calculation
+            const bottleResultElement = document.getElementById('bottle-result');
+
+            if (frequency && days && bottleSize && mLAmount) {
+                const totalDailyDose = mLAmount * frequency;
+                const totalMls = totalDailyDose * days;
+                const totalBottles = Math.ceil(totalMls / bottleSize);
+
+                bottleResultElement.innerHTML = `<div class="highlight">Total daily dose in mL:</div> ${mLAmount} mL x ${frequency} = <span>${totalDailyDose} mL</span>
+                                                 <div class="highlight">Total mL needed:</div> ${totalDailyDose} mL x ${days} = <span>${totalMls} mL</span>
+                                                 <div class="highlight">Total bottles needed:</div> ${totalMls} mL / ${bottleSize} mL = <span>${totalBottles} bottles</span>`;
+                bottleResultElement.style.display = 'block';
+            } else {
+                bottleResultElement.style.display = 'none';
+            }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risperidone (Risperdal) 1mg/mL Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 30px; /* 6 points larger */
+            font-weight: bold;
+            text-align: center;
+        }
+        .drug-name {
+            color: navy;
+            margin-bottom: 0;
+        }
+        .drug-strength {
+            color: darkorange;
+            margin-top: 0;
+        }
+        .dose-calculator {
+            color: black;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .drug-image {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+        .converter-box, .bottle-calculator-section {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #b2dfdb;
+            max-width: 600px;
+            text-align: center;
+        }
+        .converter-box input[type="number"], .bottle-calculator-section input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .converter-box button, .bottle-calculator-section button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00796b;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        .converter-box button:hover, .bottle-calculator-section button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #004d40;
+            max-width: 600px;
+            text-align: center;
+        }
+        .result span {
+            font-weight: bold;
+            color: red;
+        }
+        .highlight {
+            font-weight: bold;
+            color: blue;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-row label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row span {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .box-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dosing-box {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #004d40;
+            border-radius: 8px;
+            background-color: #e0f7fa;
+        }
+        .collapsible {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .collapsible:hover {
+            background-color: #004d40;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 1px solid #00796b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: black;
+        }
+        .highlight-red {
+            color: red;
+        }
+        .highlight-blue {
+            color: blue;
+        }
+        .highlight-orange {
+            color: orange;
+        }
+        .highlight-bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="drug-name">Risperidone (Risperdal)</h1>
+        <h1 class="drug-strength">1mg/mL</h1>
+        <h1 class="dose-calculator">Dose Calculator</h1>
+        <img src="file:///Users/mac/Desktop/Medicine-converter/Photos/Risperidone%20(Risperdal)%201mg%20mL%20Oral%20Solution%20.jpg" alt="Risperidone (Risperdal) 1mg/mL" class="drug-image">
+        
+        <div class="box-wrapper">
+            <div class="converter-box">
+                <label for="mg-amount" style="font-weight: bold; color: black;">Enter dose in mg:</label>
+                <input type="number" id="mg-amount" placeholder="Enter dose in mg">
+                <button onclick="convertDose(1, 1)">Calculate mL</button>
+                <div id="result" class="result" style="display: none;"></div>
+            </div>
+
+            <div class="bottle-calculator-section">
+                <div class="input-row">
+                    <label for="frequency">Enter frequency (times per day):</label>
+                    <input type="number" id="frequency" placeholder="Enter frequency (times per day)">
+                    <span>daily</span>
+                </div>
+                <div class="input-row">
+                    <label for="days">Enter number of days:</label>
+                    <input type="number" id="days" placeholder="Enter number of days">
+                    <span>days</span>
+                </div>
+                <div class="input-row">
+                    <label for="bottle-size">Enter bottle size (mL):</label>
+                    <input type="number" id="bottle-size" placeholder="Enter bottle size (mL)">
+                    <span>mL</span>
+                </div>
+                <button onclick="calculateBottles()">Calculate Bottles</button>
+                <div id="bottle-result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="general-dosing" class="dosing-box">
+            <button type="button" class="collapsible">ALERT: US Boxed Warning</button>
+            <div class="content">
+                <p><span class="highlight-bold">Increased mortality in elderly patients with dementia-related psychosis:</span> Elderly patients with dementia-related psychosis treated with antipsychotic drugs are at an increased risk of death. Risperidone is not approved for the treatment of patients with dementia-related psychosis.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Pediatric</button>
+            <div class="content">
+                <p><span class="highlight-bold">Bipolar mania:</span> Children and Adolescents 10 to 17 years: Oral: Initial: 0.5 mg once daily; dose may be adjusted if needed, in increments of 0.5 to 1 mg/day at intervals ≥24 hours, as tolerated, to a dose of 2.5 mg/day. Doses ranging from 0.5 to 6 mg/day have been evaluated; however, doses >2.5 mg/day do not confer additional benefit and are associated with increased adverse events; doses >6 mg/day have not been studied. Note: May administer 1/2 the daily dose twice daily in patients who experience persistent somnolence. In patients ≥11 years, use of long-acting IM risperidone has been described (see "Parenteral therapy").</p>
+                <p><span class="highlight-bold">Delirium:</span> Limited data available; optimal dose not established; experience suggests risperidone be considered for hypoactive or mixed delirium dosing should be individualized to response and decreased as soon as appropriate:</p>
+                <p>Infants: Very limited data available: Oral: 0.05 to 0.1 mg once daily at bedtime or twice daily. Dosing based on experience with implementation of PICU assessment scales and treatment protocols, small open-label trials which included infants, and case series.</p>
+                <p>Children <5 years: Oral: Initial: 0.1 to 0.2 mg once daily at bedtime; doses may be increased based upon response; dosing based on experience with implementation of PICU assessment scales and treatment protocols, small open-label trials, and expert recommendations.</p>
+                <p>Children ≥5 years and Adolescents: Oral: Initial: 0.2 to 0.5 mg once daily at bedtime; may titrate to lowest effective dose every 1 to 2 days; usual range: 0.2 to 2.5 mg/day in divided doses 2 to 4 times daily; some have suggested maximum daily dose dependent upon patient weight: <20 kg: 1 mg/day; 20 to 45 kg: 2.5 mg/day; >45 kg: 3 mg/day.</p>
+                <p><span class="highlight-bold">Disruptive behavior disorders (eg, conduct disorder [CD], oppositional defiant disorder [ODD]):</span> Limited data available:</p>
+                <p>Children ≥4 years and Adolescents: Oral: Initial: 0.01 mg/kg/dose once daily for 2 days, then 0.02 mg/kg/dose once daily; suggested initial fixed dose in patients <50 kg: 0.25 mg/day, and ≥50 kg: 0.5 mg/day. May further increase on weekly basis as tolerated to 0.06 mg/kg/dose once daily; usual maximum daily dose: 2 mg/day; improvement in target symptoms typically within 1 to 4 weeks.</p>
+                <p><span class="highlight-bold">Irritability including aggression, temper, tantrums, self-injurious behavior, and quickly changing moods associated with autism:</span></p>
+                <p>Children ≥5 years and Adolescents <18 years:</p>
+                <p>15 to 20 kg: Oral: Initial: 0.25 mg once daily; after ≥4 days, may increase dose to 0.5 mg/day; maintain this dose for ≥14 days. In patients not achieving sufficient clinical response, may increase dose in increments of 0.25 mg/day at ≥2-week intervals. Doses ranging from 0.5 to 3 mg/day have been evaluated; however, therapeutic effect reached plateau at 1 mg/day in clinical trials. Following clinical response, consider gradually decreasing dose to lowest effective dose. May be administered once daily or in divided doses twice daily.</p>
+                <p>≥20 kg: Oral: Initial: 0.5 mg once daily; after ≥4 days, may increase dose to 1 mg/day; maintain this dose for ≥14 days. In patients not achieving sufficient clinical response, may increase dose in increments of 0.5 mg/day at ≥2-week intervals. Doses ranging from 0.5 to 3 mg/day have been evaluated; however, therapeutic effect reached plateau at 2.5 mg/day (3 mg/day in pediatric patients >45 kg) in clinical trials. Following clinical response, consider gradually decreasing to lowest effective dose. May be administered once daily or in divided doses twice daily.</p>
+                <p><span class="highlight-bold">Schizophrenia:</span> Adolescents 13 to 17 years: Oral: Initial: 0.5 mg once daily; dose may be adjusted if needed, in increments of 0.5 to 1 mg/day at intervals ≥24 hours, as tolerated, to a dose of 3 mg/day. Doses ranging from 1 to 6 mg/day have been evaluated; however, doses >3 mg/day do not confer additional benefit and are associated with increased adverse events. Note: May administer 1/2 the daily dose twice daily in patients who experience persistent somnolence. In patients ≥11 years, use of long-acting IM risperidone has been described (see "Parenteral therapy").</p>
+                <p><span class="highlight-bold">Tourette syndrome, tics:</span> Limited data available; efficacy results variable: Compared to placebo, risperidone is probably more likely to reduce tic severity; reserve treatment for situations where benefits outweigh the risks; use lowest effective dose; monitor patients for movement, hormonal and metabolic adverse effects.</p>
+                <p>Children ≥7 years and Adolescents: Oral: Initial: 0.25 to 0.5 mg once daily at night; may gradually titrate every 4 to 5 days in 0.25 to 0.5 mg increments to usual reported therapeutic range: 0.25 to 6 mg/day divided in twice daily doses.</p>
+
+                <p><span class="highlight-bold">Discontinuation of therapy:</span> Children and Adolescents: American Academy of Child and Adolescent Psychiatry (AACAP), American Psychiatric Association (APA), Canadian Psychiatric Association (CPA), National Institute for Health and Care Excellence (NICE), and World Federation of Societies of Biological Psychiatry (WFSBP) guidelines recommend gradually tapering antipsychotics to avoid withdrawal symptoms and minimize the risk of relapse; risk for withdrawal symptoms may be highest with highly anticholinergic or dopaminergic antipsychotics. When stopping antipsychotic therapy in patients with schizophrenia, the CPA guidelines recommend a gradual taper over 6 to 24 months and the APA guidelines recommend reducing the dose by 10% each month. Continuing antiparkinsonism agents for a brief period after discontinuation may prevent withdrawal symptoms. When switching antipsychotics, three strategies have been suggested: Cross-titration (gradually discontinuing the first antipsychotic while gradually increasing the new antipsychotic), overlap and taper (maintaining the dose of the first antipsychotic while gradually increasing the new antipsychotic, then tapering the first antipsychotic), and abrupt change (abruptly discontinuing the first antipsychotic and either increasing the new antipsychotic gradually or starting it at a treatment dose). Evidence supporting ideal switch strategies and taper rates is limited and results are conflicting.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosage adjustment for concomitant therapy</button>
+            <div class="content">
+                <p>Significant drug interactions exist, requiring dose/frequency adjustment or avoidance. Consult drug interactions database for more information.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Altered Kidney Function: Pediatric</button>
+            <div class="content">
+                <p>There are no pediatric specific dosage recommendations; based on experience in adult patients, dosing adjustment suggested.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Hepatic Impairment: Pediatric</button>
+            <div class="content">
+                <p>There are no pediatric specific dosage recommendations; based on experience in adult patients, dosing adjustment suggested.</p>
+            </div>
+
+            <button type="button" class="collapsible">Dosing: Adult</button>
+            <div class="content">
+                <p>Dosage guidance: Dosing: Although the manufacturer's labeling for the oral tablet includes a maximum dose of up to 16 mg/day, doses >8 mg/day are generally not recommended. For further information, refer to a reliable resource.</p>
+            </div>
+        </div>
+        
+        <p><span class="highlight">Reference:</span> LexiDrugs</p>
+    </div>
+    <script>
+        function convertDose(mgPerML, mLPerUnit) {
+            const mgAmount = document.getElementById('mg-amount').value;
+            const resultElement = document.getElementById('result');
+
+            if (mgAmount) {
+                const mLAmount = (mgAmount / mgPerML) * mLPerUnit;
+                resultElement.innerHTML = `<span class="highlight">Each dose in mL:</span> ${mgAmount} mg / ${mgPerML} mg/mL = <span>${mLAmount.toFixed(2).replace(/\.00$/, '')} mL</span>`;
+                resultElement.style.display = 'block';
+                return mLAmount;  // Return the mLAmount for further calculations
+            } else {
+                resultElement.style.display = 'none';
+                return 0;  // Return 0 if no value is entered
+            }
+        }
+
+        function calculateBottles() {
+            const frequency = document.getElementById('frequency').value;
+            const days = document.getElementById('days').value;
+            const bottleSize = document.getElementById('bottle-size').value;
+            const mgAmount = document.getElementById('mg-amount').value;
+            const mLAmount = convertDose(1, 1);  // Get the mLAmount from the first calculation
+            const bottleResultElement = document.getElementById('bottle-result');
+
+            if (frequency && days && bottleSize && mLAmount) {
+                const totalDailyDose = mLAmount * frequency;
+                const totalMls = totalDailyDose * days;
+                const totalBottles = Math.ceil(totalMls / bottleSize);
+
+                bottleResultElement.innerHTML = `<div class="highlight">Total daily dose in mL:</div> ${mLAmount} mL x ${frequency} = <span>${totalDailyDose} mL</span>
+                                                 <div class="highlight">Total mL needed:</div> ${totalDailyDose} mL x ${days} = <span>${totalMls} mL</span>
+                                                 <div class="highlight">Total bottles needed:</div> ${totalMls} mL / ${bottleSize} mL = <span>${totalBottles} bottles</span>`;
+                bottleResultElement.style.display = 'block';
+            } else {
+                bottleResultElement.style.display = 'none';
+            }
+        }
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

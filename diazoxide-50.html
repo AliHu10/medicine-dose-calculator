@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diazoxide 50mg/mL Suspension Dose Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="peripheral-container">
+        <h2>Diazoxide <span class="strength">50mg/mL</span> Suspension Dose Calculator</h2>
+        <div class="converter-box">
+            <input type="number" id="mg-amount" placeholder="Enter amount in mg"><span class="mg-unit">mg</span>
+            <button onclick="convertDose('Diazoxide 50mg/mL Suspension', 50, 1, 1000)">Convert to mL</button>
+            <p id="result"></p>
+            <p id="warning" class="warning"></p>
+        </div>
+        <div id="general-dosing" class="dosing-box">
+            <h3>General Dosing</h3>
+            <p><span class="highlight">General dosing information for Diazoxide 50mg/mL Suspension will be provided here.</span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
