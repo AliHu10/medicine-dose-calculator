@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surgical & Paediatric Pharmacy - MKH</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .main-container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #004d40;
+        }
+        h2.subtitle {
+            text-align: center;
+            color: #005b6a;
+            font-size: 18px; /* Increased font size for better readability */
+            margin-top: -10px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #004d40;
+            border-radius: 4px;
+            background-color: #e0f7fa;
+            color: #004d40;
+        }
+        .category {
+            margin: 20px 0;
+        }
+        .category h2 {
+            color: #00796b;
+        }
+        .medicine-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .medicine-list li {
+            background-color: #b2dfdb;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .medicine-list li a {
+            text-decoration: none;
+            color: #00796b;
+            font-weight: bold;
+        }
+        .autocomplete-suggestions {
+            border: 1px solid #00796b;
+            max-height: 150px;
+            overflow-y: auto;
+            background-color: #ffffff;
+            border-radius: 4px;
+            margin-top: -1px;
+        }
+        .autocomplete-suggestions div {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .autocomplete-suggestions div:hover {
+            background-color: #e0f7fa;
+        }
+        .general-section {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #00796b;
+            color: #ffffff;
+        }
+        .general-section h2 {
+            text-align: center;
+            cursor: pointer;
+            margin: 0;
+        }
+        .divider {
+            border-top: 2px solid #004d40;
+            margin: 40px 0;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #004d40;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1>Surgical & Paediatric Pharmacy - MKH</h1>
+        <h2 class="subtitle">mg to mL calculator</h2>
+        <input type="text" id="search-bar" placeholder="Search for a medicine..." oninput="showSuggestions()" autocomplete="off">
+        <div id="autocomplete-list" class="autocomplete-suggestions"></div>
+        
+        <div class="general-section">
+            <h2 onclick="location.href='general-dose-calculator.html'">General Dose Calculator</h2>
+        </div>
+
+        <div class="divider"></div>
+
+        <div id="medicine-categories">
+            <div class="category">
+                <h2>Antiepileptics</h2>
+                <ul class="medicine-list">
+                    <li><a href="carbamazepine-2.html">Carbamazepine (Tegretol) 2% Syrup (100mg/5mL)</a></li>
+                    <li><a href="levetiracetam-100.html">Levetiracetam (Keppra) 100mg/mL Suspension</a></li>
+                    <li><a href="valproate-sodium-57.64.html">Valproate Sodium (Depakine) 57.64mg/mL Syrup</a></li>
+                    <li><a href="valproate-sodium-200.html">Valproate Sodium (Depakine) 200mg/mL Solution</a></li>
+                    <li><a href="oxacarbazepine-60.html">Oxacarbazepine (Trileptal) 60mg/mL</a></li>
+                    <li><a href="ethosuximide-250.html">Ethosuximide (Zarontin) 250mg/5mL Syrup</a></li>
+                </ul>
+            </div>
+            <br>
+            <div class="category">
+                <h2>Antimicrobials</h2>
+                <ul class="medicine-list">
+                    <li><a href="amoxicillin-125.html">Amoxicillin (Amoxil) 125mg/5mL Suspension</a></li>
+                    <li><a href="amoxicillin-250.html">Amoxicillin (Amoxil) 250mg/5mL Suspension</a></li>
+                    <li><a href="augmentin-457.html">Amoxicillin Trihydrate/Clavulanic Acid (Augmentin) 457mg/5mL Suspension</a></li>
+                    <li><a href="augmentin-es-600.html">Amoxicillin Trihydrate/Potassium Clavulanate (Augmentin ES-600) 642mg/5mL Suspension</a></li>
+                    <li><a href="Zithromax-200.html">Azithromycin (Zithromax) 200mg/5mL Suspension</a></li>
+                    <li><a href="cefixime-100.html">Cefixime (Suprax) 100mg/5mL Suspension</a></li>
+                    <li><a href="cefuroxime-250.html">Cefuroxime (Zinnat) 250mg/5mL Suspension</a></li>
+                    <li><a href="cephalexin-250.html">Cephalexin (Keflex) 250mg/5mL Suspension</a></li>
+                    <li><a href="ciprofloxacin-250.html">Ciprofloxacin (Ciproxen) 250mg/5mL Suspension</a></li>
+                    <li><a href="clarithromycin-125.html">Clarithromycin (Klacid) 125mg/5mL Suspension</a></li>
+                    <li><a href="clarithromycin-250.html">Clarithromycin (Klacid) 250mg/5mL Suspension</a></li>
+                    <li><a href="clindamycin-75.html">Clindamycin (Dalacin) 75mg/5mL Syrup</a></li>
+                    <li><a href="nystatin-10000.html">Nystatin (Micostat/Mycosat) 10,000 IU/mL Oral Drops</a></li>
+                    <li><a href="metronidazole-200.html">Metronidazole (Flagyl) 200mg/5mL</a></li>
+                    <li><a href="trimethoprim-sulfamethoxazole-8.html">Trimethoprim/Sulfamethoxazole (Septrin) 8mg/1mL Syrup</a></li>
+                    <li><a href="oseltamivir-6.html">Oseltamivir (Tamiflu) 6mg/mL Suspension</a></li>
+                    <li><a href="penicillin-v-125.html">Penicillin V 125mg/5mL Syrup</a></li>
+                </ul>
+            </div>
+            <br>
+            <div class="category">
+                <h2>Other Medicines</h2>
+                <ul class="medicine-list">
+                    <li><a href="baclofen-5.html">Baclofen (Lioresal) 5mg/5mL Suspension</a></li>
+                    <li><a href="captopril-5.html">Captopril (Capotene) 5mg/mL Syrup</a></li>
+                    <li><a href="domperidone-5.html">Domperidone (Motilium) 5mg/5mL Suspension</a></li>
+                    <li><a href="ferrous-sulphate-25-5.html">Ferrous Sulphate (Iron) 25mg/5mL Syrup</a></li>
+                    <li><a href="ferrous-sulphate-25-1.html">Ferrous Sulphate (Iron Drops) 25mg/1mL</a></li>
+                    <li><a href="folic-acid-2.5.html">Folic Acid 2.5mg/5mL Syrup</a></li>
+                    <li><a href="furosemide-20.html">Furosemide (Lasix) 20mg/5mL Solution</a></li>
+                    <li><a href="glycerol-phenylbutyrate-1.1.html">Glycerol Phenylbutyrate (Ravicti) 1.1mg/mL Syrup</a></li>
+                    <li><a href="glycopyronium-bromide-1.html">Glycopyronium Bromide 1mg/5mL Solution</a></li>
+                    <li><a href="ibuprofen-100.html">Ibuprofen (Brufen) 100mg/5mL</a></li>
+                    <li><a href="l-carnitine-100.html">L-Carnitine 100mg/mL Oral Solution</a></li>
+                    <li><a href="levothyroxine-150mcg.html">Levothyroxine Sodium (L-Thyroxine SERB) 150mcg/mL Solution</a></li>
+                    <li><a href="methotrexate-2.html">Methotrexate 2mg Oral Solution</a></li>
+                    <li><a href="ondansetron-4.html">Ondansetron HCl (Zofran) 4mg/5mL Solution</a></li>
+                    <li><a href="omeprazole-4.html">Omeprazole (Oribzole) 4mg/mL Suspension</a></li>
+                    <li><a href="oxybutynin-5.html">Oxybutynin (Uripan) 5mg/5mL</a></li>
+                    <li><a href="paracetamol-125.html">Paracetamol (Adol) 125mg/5mL Syrup</a></li>
+                    <li><a href="paracetamol-250.html">Paracetamol (Adol) 250mg/5mL Syrup</a></li>
+                    <li><a href="prednisolone-15.html">Prednisolone (Predo) 15mg/5mL Oral Solution</a></li>
+                    <li><a href="propranolol-5.html">Propranolol (Inderal) 5mg/5mL Oral Solution</a></li>
+                    <li><a href="risperidone-1.html">Risperidone (Risperdal) 1mg/mL Oral Solution</a></li>
+                    <li><a href="spirolactone-25.html">Spirolactone (Aldactone) 25mg/5mL Suspension</a></li>
+                    <li><a href="spirolactone-50.html">Spironolactone (Aldactone) 50mg/5mL Suspension</a></li>
+                    <li><a href="ursodeoxycholic-acid-250.html">Ursodeoxycholic Acid (Ursofalk) 250mg/5mL Suspension</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            Created by Ph. Hussain A Q Ali
+        </div>
+    </div>
+    <script>
+        function showSuggestions() {
+            const input = document.getElementById('search-bar');
+            const filter = input.value.toLowerCase();
+            const suggestions = document.getElementById('autocomplete-list');
+            const links = document.querySelectorAll('.medicine-list li a');
+            suggestions.innerHTML = '';
+
+            links.forEach(link => {
+                if (link.textContent.toLowerCase().includes(filter)) {
+                    const suggestion = document.createElement('div');
+                    suggestion.textContent = link.textContent;
+                    suggestion.onclick = () => {
+                        window.location.href = link.href;
+                    };
+                    suggestions.appendChild(suggestion);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
